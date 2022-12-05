@@ -75,11 +75,11 @@ Version 1.0
 \restoregeometry
 \chapter{Introduction}
 \section{Scope}
-eMall is a system meant to provide services for charging electric vehicles and manage charging stations. This is meant both for normal people and for CPO workers. 
+eMall is a system meant to provide services for charging electric vehicles and managing charging stations. This is meant both for normal people (i.e. end users) and for CPO workers. 
 The application domain concerns different types of world phenomena, shared phenomena and machine phenomena. \\
-We can identify the following world phenomena:
+We can identify the followings world phenomena:
 \begin{itemize}
-\item {[W1]} \label{W1}User connects his electric vehicle to the socket.
+\item {[W1]} \label{W1}User connects his electric vehicle to the charge socket.
 \item {[W2]} \label{W2}DSOs provide energy to their associated charging stations.
 \item {[W3]} \label{W3}Batteries, if available and enabled, store energy from DSOs and provide it to the charging station.
 \item {[W4]} \label{W4}Charging sockets are supplied directly by DSO through the network and/or by batteries of the charging station.
@@ -92,11 +92,11 @@ the following shared phenomena controlled by the world and observed by the machi
 \end{itemize}
 and the following shared phenomena controlled by the machine and observed by the world:
 \begin{itemize}
-\item {[S4]} Location, external and internal status of the charging station are provided.
+\item {[S4]} Location, external and internal status of the charging station are visible.
 \item {[S5]} The system checks the booking ID and enables the charging operation.
 \item {[S6]} Vehicle charging is started.
 \item {[S7]} Vehicle charging is stopped and a notification is sent.
-\item {[S8]} The system makes payment of the charging service.
+\item {[S8]} The system elaborates the payment of the charging service.
 \end{itemize}
 
 \section{Purpose}
@@ -128,7 +128,7 @@ In the following table is shown which world and shared phenoma are involved for 
 \item \textit{eMSP}: e-Mobility Service Provider.
 \item \textit{CPO}: Charging Point Operator.
 \item \textit{CPOW}: Charging Point Operator Worker.
-\item \textit{CMPS}: Charge Point Management System.
+\item \textit{CPMS}: Charge Point Management System.
 \item \textit{DSO}: Distribution System Operator.
 \end{itemize}
 \section{Revision history}
@@ -158,13 +158,14 @@ In this chapter the application behavior is described: at first some scenarios a
 
 \chapter{Overall Description}
 \section{Product perspective}
-The whole system is meant in order to develop an application which allows to manage both eMPS and CPO parts. There are so two different type of users and two subsystems related to each one of them.
+This section is dedicated to the identification of the most important scenarios and to a first description of the whole system through class and state diagrams. Both the two different types of users and subsystems are considered.
 \subsection{Scenarios}
+For all scenarios described below we assume that the system provides a mobile application for end users and a web interface for CPOWs.
 \subsubsection{Unregistered end-user}
 A possible end-user has just bought his brand new Tesla Model X and has seen some interesting ads about the new application eMall, which will allow him to know where to charge his vehicle and manage the whole process. He decides to download the app and sign-up, filling in all the requested fields and starting using the app. He decides also to insert a picture of his driving license and to register his car inserting dates about the model and the plate. After that, he will include also all information about his debit card so, when he will decide to book a recharge everything will be ready.
 
 \subsubsection{Unregistered CPOW}
-A new CPOW has just been hired and on his first day of work, he needs to register to the eMall web service in order to manage the CPMS of the CPO he is working for. During the sign-up process, he has to insert, in addition to all requested fields, also a special code provided by his employer to register him as a CPOW and not as an end-user.
+A new CPOW has just been hired and on his first day of work, he needs to register to the eMall web service in order to manage the CPMS of the CPO he is working for. During the sign-up process, he has to insert, in addition to all requested fields, also a special code provided by his employer to register him as a CPOW.
 
 \subsubsection{End-user wants to book a charge}
 An end-user decides to open eMall app in order to see if there are news offers in the charging stations of his city and discovers that the one of the shopping mall has a discount of 25\%. Tomorrow he will finish working at 6:30 pm and he needs to buy also a pair of shoes. So he decides to take advantage also of the special offer and clicks on the book button of the charging station on the map, selects his car and a payment method, and books a fast charging socket between 7 pm and 8 pm tomorrow.
@@ -173,7 +174,7 @@ An end-user decides to open eMall app in order to see if there are news offers i
 An end user arrives at the charging station where he has booked a medium-speed charging socket, presses the unlock button from the app, connects the socket to his car, and starts the charging process. Now he goes to get his hair cut and while he was looking at his new hairstyle in front of the mirror he receives a notification from eMall app which says that the charging process is finished. So he comes back to the charging station, presses the disconnect button on the app, and disconnects the charging socket. At this point, he receives a notification from his bank which says that 20 euros have been charged to his debit card.
 
 \subsubsection{CPOW registers a newly opened charging station}
-A CPOW has just received the assignment to manage through the CPMS a new charging station that will be inaugurated today in the main square of the city, that can be accessed only by electric vehicles. Since all connections between the station and the systems have been already configured by eMSP technicians he only has to add it on his web interface. He presses the \textit{configure new station} button and fills all requested fields taking special care about the unique id identifier of the station that will allow him to manage it from his CPMS. At this point, the charging station configuration is ended and it can start to work properly.
+A CPOW has just received the assignment to manage through the CPMS a new charging station that will be inaugurated today in the main square of the city, that can be accessed only by electric vehicles. Since all connections between the station and the systems have been already configured by technicians he only has to add it on his web interface. He presses the \textit{configure new station} button and fills all requested fields taking special care about the unique physical id identifier of the station that will allow him to manage it from his CPMS. At this point, the charging station configuration is ended and the management can start to work properly.
 
 \subsubsection{CPOW temporarily disable batteries due to maintenance}
 This night 4 batteries of charging station 1046 have to be removed following the regular maintenance schedule and a CPOW that manages the CPMS related to that charging station has to do some operations before the end of his turn at 6 pm. First of all, he selects that specific charging station on his web interface clicks the battery management button, and selects the 4 interested batteries. At this point, he selects programmed disabling and sets the batteries off from 9 pm of that evening. Since the recharging station has 2 more batteries he sets up to take 25\% of energy from batteries and 75\% directly from DSO during the charging processes of that night. The day after when the CPOW starts his turn at 9 am he receives a notification that the maintenance has ended and batteries have been correctly reconnected. So he re-enables them and set the charging station to take again 100\% of energy from batteries.
@@ -182,25 +183,21 @@ This night 4 batteries of charging station 1046 have to be removed following the
 Yesterday a new charging station has been opened in the parking of the city shopping center and this morning the manager knocks on the door of the office of the CPOW who manage, trough the CMPS, that specific station, in order to see if there are already some users. The CPOW opens his web interface, selects charging station 1050, and clicks on show statistics. The charging station is composed of 6 charging sockets, 3 at fast-speed and 3 at medium-speed, and 10 batteries. Currently, 2 cars are charging: the first one is a Honda-e, connected to socket 1 (fast-speed charge), that has absorbed 19/35.5kwh of power and will take 12 minutes to complete the charging process. The second one is a Hyundai	Kona Electric, which is connected to socket 4 (medium-speed charge), that has absorbed 10/64kwh of power and will take 55 minutes to complete the charging process. The CPOW and the manager see also that 12 other recharges have been booked from now to midnight, 7 on fast-speed sockets and 5 on medium-speed ones. Actually only one of the 10 batteries is at 53\% of his charge and the remaining 9 are all full. The manager is pretty satisfied since it is only the second day since the station has opened and he can see encouraging results. So he invites the CPOW for a coffee break and they go to the coffee machine together.
 
 \subsubsection{CPOW manually decides where to get energy}
-An eMSP company made a deal with a DSO and if they will purchase energy only from him for one month he will reduce the price making it the most convenient for the eMSP. So all CPOWs of the interested CPO have been instructed to proceed in this way. We took as an example one of them. This specific CPOW decides to have a look at the different offers from all available DSO and he notices that actually the one of the deal isn't the cheaper, so the system won't dynamically decide to acquire energy from him. So, through the web interface of the
- CMPS, he switches off the auto-deciding acquisition for all the charging stations under his control and set the specific DSO as the only supplier. He also sets all charging stations to use only energy from the batteries until they are empty trying to save some money using before all the already purchased energy that is available. 
+An eMSP company made a deal with a DSO company and if they will purchase energy only from them for one month they will reduce the price making it the most convenient for the eMSP. So all CPOWs of the interested CPO have been instructed to proceed in this way. We took as an example one of them. This specific CPOW decides to have a look at the different offers from all available DSO and he notices that actually the one of the deal isn't the cheaper, so the system won't dynamically decide to acquire energy from that specific company. So, through the web interface of the CMPS, he switches off the auto-deciding acquisition for all the charging stations under his control and set the specific DSO as the only supplier. He also sets all charging stations to use only energy from the batteries until they are empty trying to save some money using before all the already purchased energy that is available. 
 
 \subsection{Class diagram}
-The UML class diagram which describes the domain application is presented in figure \ref{fig:class-diagramRASD}. The User class is abstract and both EndUser and CPOW classes inherit from it since are the two different types of users of the whole system. Each EndUser owns vehicles and can book recharges which refer to them. Each recharge has a status and happens in a charging socket. Charging stations are composed of charging sockets and optionally also of batteries. There can be discounts associated to them. Each charging station refers to a specific eMSP. Each CPO administrates one and only one CPMS that manages one or more charging stations and can use DSO to purchase energy forniture. There is a provisional class that is EnergyForniture, because at this stage of the project the best way to keep track of energy furniture is to separate them and locate different bills in different objects. This is meant in order to have a detailed report of the precise amount of energy purchased, its price and its destination since each energy forniture can refer to one/more batteries or directly to one/more charging sockets.
+The UML class diagram which describes the domain application is presented in figure \ref{fig:class-diagramRASD}. The User class is abstract and both EndUser and CPOW classes inherit from it since are the two different types of users of the whole system. Each EndUser owns vehicles and can book recharges which refer to them. Each recharge has a status and happens in a charging socket. Charging stations are composed of charging columns which are in turn composed of charging sockets and optionally also of batteries. There can be discounts associated to them. Each charging station refers to a specific eMSP. Each CPO administrates one and only one CPMS that manages one or more charging stations and can use DSOs to purchase energy forniture. There is a provisional class that is EnergyForniture, because at this stage of the project the best way to keep track of energy furniture is to separate them and locate different bills in different objects. This is meant in order to have a detailed report of the precise amount of energy purchased, its price and its destination since each energy forniture can refer to one/more batteries or directly to one/more charging sockets.
 
 \subsection{State charts}
 \subsubsection{Charging process}
-In the state chart displayed in figure \ref{fig:state-diagramRASD} the whole charging process is presented. This chart starts describing the booking process and all the requirements that have to be satisfied in order to make a correct booking of a charge (i.e. vehicle selection).  For simplicity, we assume that the user is already logged in to the application and that the \textit{select charging station} operation is meant to include also the type of socket if more options are available (i.e. fast charge socket). After the charge is booked, when the user inserts the plug of his vehicle into the socket the system enters the \textit{Waiting charge completed} state, which is composed of two different states that describe the effective charging process. When the plug is removed the whole process ended. With this last action, we assume also that the payment is done at the moment of the plug removal since the found availability has been already checked during the booking phase.
+In the state chart displayed in figure \ref{fig:state-diagramRASD} the whole charging process is presented. This chart starts describing the booking process and all the requirements that have to be satisfied in order to make a correct booking of a charge (i.e. vehicle selection).  For simplicity, we assume that the user is already logged in to the application and that the \textit{select charging station} operation is meant to include also the type of socket if more options are available (i.e. fast charge socket). After the charge is booked, when the user inserts the plug of his vehicle into the socket the system enters the \textit{Waiting charge completed} state, which is composed of two different states that describe the effective charging process. When the plug is removed the whole process ends. With this last action, we assume also that the payment is done at the moment of the plug removal since the found availability has been already checked during the booking phase.
 
 \subsubsection{Charging station energy supply}
 In the state chart displayed in figure \ref{fig:state-diagramChargingRASD} is described the state machine related to the energy supply types of a charging station. This representation has to be assumed to be applied independently to all the charging sockets of that specific charging station and the selection between batteries and network can be made manually by CPMS operators or dynamically by the system.
 
-\subsubsection{Other}
-Other objects are not represented in UML state charts since they don't change state at all during the system activities or the changes are too trivial to be represented in a diagram.
-
 \newgeometry{top=0.1cm}
 \begin{figure}[p]
-\includegraphics[width=\textwidth]{ClassDiagramRASD}
+\includegraphics[width=\textwidth]{ClassDiagramRASDV2}
 \caption{UML Class Diagram}
 \label{fig:class-diagramRASD}
 \end{figure}
@@ -220,6 +217,8 @@ Other objects are not represented in UML state charts since they don't change st
 \end{figure}
 \restoregeometry
 
+\subsubsection{Other}
+Other objects are not represented in UML state charts since they don't change state at all during the system activities or the changes are too trivial to be represented in a diagram.
 
 \section{Product functions}
 In this section the most important functions that the eMall app will offer are presented divided by the type of user that will exploit them.
@@ -227,13 +226,13 @@ In this section the most important functions that the eMall app will offer are p
 \subsection{Unregistered user}
 
 \subsubsection{Application exploring}
-When a user in not logged-in into the application the system will show a map containing the nearest charging stations and the related prices, but any operation can be performed until the login/registration. 
+When a user in not logged-in into the application the system will show a map containing the nearest charging stations and the related prices. This information can be accessed also in a list format where also some filters are available, but any operation (e.g. book a recharge) can't be performed until the login/registration.
 
 \subsubsection{End user registration}
-The system allows unregistered users to register and become effective end users of the application. They have to provide their first name, last name, username, password, date of birth and driving license ID. All these fields are mandatory in order to complete successfully the registration process.
+The system allows unregistered users to register and become effective end users of the application. They have to provide their first name, last name, username, password, date of birth and driving license ID. All these fields are mandatory in order to complete successfully the registration process. Optionally a user will be able to register a car and a payment method during the registration process, but this operation can also be performed later.
 
 \subsubsection{CPOW registration}
-The system allows newly hired CPO Workers to set up their accounts in order to access the CPMS management interface. They have to provide their first name, last name, username, password, and most important thing, their badge number. Also in this case, all fields are mandatory in order to complete successfully the registration process, otherwise, it will fail.
+The system allows newly hired CPOWs to set up their accounts in order to access the CPMS management web interface. They have to provide their first name, last name, username, password, and most important thing, their badge number. Also in this case, all fields are mandatory in order to complete successfully the registration process, otherwise, it will fail.
 
 \subsection{Authenticated end user}
 Here the focus is on the purpose of eMall on the end user side. In particular, we have two main functionalities.
@@ -276,17 +275,24 @@ The system has the following different types of users:
 In the following rows domain assumptions are presented:
 \begin{itemize}
 \item{[D1]} \label{D1} Each CPO is associated with one and only one CPMS.
-\item{[D2]} \label{D2} The system uses third-party software to check if on the \textit{End User} payment method there are enough funds to make a payment of a full charge and to lock them until the charging process has ended.
+\item{[D2]} \label{D2} All charging stations have been already correctly added in the right coordinates to third party map used.
 \item{[D3]} \label{D3} An End User can't disconnect the plug during the charging process.
-\item{[D4]} \label{D4} The system needs to access the dates of all the electric vehicle models in commerce in order to know in advance which is the maximum battery capacity for each booked charge.
-\item{[D5]} \label{D5} A unique identifier has been associated physically to every charging station.
-\item{[D6]} \label{D6} CPOs must manage their charging station only through his related CPMS.
-\item{[D7]} \label{D7} Energy can't be supplied by different DSOs at the same time to the same charging station.
+\item{[D4]} \label{D4} A unique identifier has been associated physically to every charging station.
+\item{[D5]} \label{D5} CPOs must manage their charging station only through his related CPMS.
+\item{[D6]} \label{D6} Energy can't be supplied by different DSOs at the same time to the same charging station.
+\item{[D7]} \label{D7} Charging sockets can't be supplied by both batteries and the network at the same time.
 \item{[D8]} \label{D8} Every end user make charges at the charging station with the specific vehicle he has booked for.
 \item{[D9]} \label{D9} The networks that allows the energy furniture from DSOs to charging sockets or batteries must work properly.
 \item{[D10]} \label{D10} The system exploits APIs to retrieve information about energy prices from different DSOs.
 \end{itemize}
 \subsection{Dependencies and constraints}
+Some third-party applications and dates from public institutions are necessary to make all functionalities of the system work properly.
+\begin{itemize}
+    \item \textit{Vehicle registering check}: check if inserted car model and plate exists.
+    \item \textit{Vehicle model information get}: get dates of all the electric vehicle models in commerce in order to know in advance which is the maximum battery capacity for each booked charge.
+    \item \textit{Payment method check}: check if the payment method added by the user works properly. It will be exploited also before every charge starts in order to ensure that on the payment method there are enough funds to complete a full charge.
+    \item \textit{Map service}: exploit a map service to show a map when the application starts.
+\end{itemize}
 
 
 
