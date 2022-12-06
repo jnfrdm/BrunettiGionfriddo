@@ -284,6 +284,7 @@ In the following rows domain assumptions are presented:
 \item{[D8]} \label{D8} Every end user make charges at the charging station with the specific vehicle he has booked for.
 \item{[D9]} \label{D9} The networks that allows the energy furniture from DSOs to charging sockets or batteries must work properly.
 \item{[D10]} \label{D10} The system exploits APIs to retrieve information about energy prices from different DSOs.
+\item{[D11]} \label{D11} Charging sockets are equipped with an \textit{RFID} receiver in order to be unlocked.
 \end{itemize}
 \subsection{Dependencies and constraints}
 Some third-party applications and dates from public institutions are necessary to make all functionalities of the system work properly.
@@ -294,9 +295,21 @@ Some third-party applications and dates from public institutions are necessary t
     \item \textit{Map service}: exploit a map service to show a map when the application starts.
 \end{itemize}
 
-
-
 \chapter{Specific Requirements}
+\section{External Interface Requirements}
+\subsection{User Interfaces}
+eMall provides two different types of user interfaces, one for each type of user. In detail, end users exploit provided services through a mobile application, absolutely necessary to unlock charging sockets and start the charging process. On the other hand, CPOWs, which are meant like normal office workers, exploit their managing functionalities through a web application. Both interfaces have to satisfy accessibility requirements and, in particular, the mobile application must be user-friendly.
+\subsection{Hardware Interfaces}
+Since eMall is a software system, no specific hardware interfaces are provided to users. But clearly, end users will interact with charging station hardware (i.e. RFID receivers of charging sockets) that are already provided by domain assumptions. So the communication hardware of the mobile phone on which the mobile up runs is exploited.
+\subsection{Software Interfaces}
+Since no other applications need to retrieve any kind of data from eMall there are no software interfaces provided. But, like for Hardware Interfaces, the system exploits third-party software as reported in the dependencies section and also other APIs for information retrieval (e.g. DSOs prices) as declared in the domain assumption section.
+\subsection{Communication Interfaces}
+The whole eMall service is based on communication between different actors. Both the mobile app and CPMS communicate with the central eMall server through uniform internal APIs exploiting HTTPS protocol. In either the two subsystems type of communication is bidirectional, they need to send and receive data from the central server. For example, the mobile app must get updated availability of free charging slots but also update the central server when a booking is made. On the other side, also CPMS must always get updated information from the server, but also set, for example, a new DSO for a certain charging station. 
+
+Also communication with all the charging stations is necessary. In detail, the main server communicates with charging stations always through internal uniform APIs. Furthermore, RFID technology is exploited to allow communication between the mobile app and the charging socket (i.e. for unlocking the charging socket). In particular, mobile phones communicate with the RFID receiver of the sockets.
+
+All other types of communication, like the one with all third-party software presented in the dependencies section, happen through API, as the retrieval of DSOs prices.
+
 
 
 \section{Functional Requirements}
@@ -718,6 +731,21 @@ Exceptions:
 \item There are no charging stations available. The systems shows a message which says that the list is empty.
 \end{itemize}
 In the following table is shown which goals are involved in every use case.
+
+\section{Performance Requirements}
+Performances are particularly critical for eMall system. On the end user side, all operations have to be performed as fast as possible and in the correct order, e.g. overbooking of charging sockets must be avoided. Those specifications must fit also end users with low-speed internet connections. Also on the CPMS side all operations, like switching from battery power to network power, must be performed in less than 1 second. All the computing infrastructure must be thought to be scalable, in order to allow future server capacity to increase due to the increasing number of users.
+
+\section{Design Constraints}
+\subsection{Standards compliance}
+\subsection{Hardware limitations}
+\subsection{Any other constraint}
+
+\section{Software System Attributes}
+\subsection{Reliability}
+\subsection{Availability}
+\subsection{Security}
+\subsection{Maintainability}
+\subsection{Portability}
 
 \chapter{Formal Analysis using Alloy}
 
