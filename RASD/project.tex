@@ -328,19 +328,19 @@ All other types of communication, like the one with all third-party software pre
     \item{[R12]} \label{R12} The system must show to end users the charging status (e.g. remaining time to complete charge).
     \item{[R13]} \label{R13} The system must notify the end-user when the charge is complete.
     \item{[R14]} \label{R14} When a charging process is correctly finished the system must charge on the end user selected payment system the correct import.
-    \item{[R15]} \label{R15} When a charging process is correctly finished the system must charge on the end user selected payment system the correct import.
-    \item{[R16]} \label{R16} The system must allow CPOW to register a new charging station through its physical id.
-    \item{[R17]} \label{R17} The system must be able to dynamically select if using batteries, directly the network or a mix of the two for each charging station. 
-    \item{[R18]} \label{R18} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them. 
-    \item{[R19]} \label{R19} The system must be able to dynamically select which DSO use to provide energy to a specific charging station.
-    \item{[R20]} \label{R20} The system must allow CPOWs to manually select which DSO use to provide energy to a specific charging station associated to them.
-    \item{[R21]} \label{R21} The system must be able to dynamically decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations .
-    \item{[R22]} \label{R22} The system must allow CPOWs to manually decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations associated to them.
-    \item{[R23]} \label{R23} The system must keep track of the current status of each charging process (e.g. booked, startedCharging, etc.).
-    \item{[R24]} \label{R24} The system must keep track of the structure of each charging station (e.g. number of columns, number and type of sockets).
-    \item{[R25]} \label{R25} The system must allow CPOWs to view the structure of each charging station associated to them.
-    \item{[R26]} \label{R26} The system must keep track for each charging station of all bookings related to it.
-    \item{[R27]} \label{R27} The system must allow CPOWs to view all the bookings of a certain charging station associated to them and their status.
+    \item{[R15]} \label{R15} The system must allow CPOW to register a new charging station through its physical id.
+    \item{[R16]} \label{R16} The system must be able to dynamically select if using batteries, directly the network or a mix of the two for each charging station.
+    \item{[R17]} \label{R17} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them.
+    \item{[R18]} \label{R18} The system must be able to dynamically select which DSO use to provide energy to a specific charging station.
+    \item{[R19]} \label{R19} The system must allow CPOWs to manually select which DSO use to provide energy to a specific charging station associated to them.
+    \item{[R20]} \label{R20} The system must be able to dynamically decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations .
+    \item{[R21]} \label{R21} The system must allow CPOWs to manually decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations associated to them.
+    \item{[R22]} \label{R22} The system must keep track of the current status of each charging process (e.g. booked, startedCharging, etc.).
+    \item{[R23]} \label{R23} The system must keep track of the structure of each charging station (e.g. number of columns, number and type of sockets).
+    \item{[R24]} \label{R24} The system must allow CPOWs to view the structure of each charging station associated to them.
+    \item{[R25]} \label{R25} The system must keep track for each charging station of all bookings related to it.
+    \item{[R26]} \label{R26} The system must allow CPOWs to view all the bookings of a certain charging station associated to them and their status.
+    \item{[R27]} \label{R27} The system must allow CPOWs to set prices and special offers for a certain charging station associated to him.
 \end{itemize}
 
 \subsection{Use cases}
@@ -350,7 +350,7 @@ In this section the various use cases present in the use case diagram and derive
 \\
 \\
 Actors: Non registered End-User\\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item The End-User does not have an account and has the application opened
 \end{itemize}
@@ -360,14 +360,14 @@ Flow of events:
 \item The End-User clicks on the "Register" button.
 \item The End-User clicks on the "I'm a User" button.
 \item The End-User provides name, surname, date of birth, email address, all information about his debit card and all information about his electric vehicles that he wants to register.
-\item The End-User provides username and password. 
+\item The End-User provides username and password.
 \item The End-User clicks on the “confirm” button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
-\item A successful message is sent to the End-User which is redirected to the main page of the account 
+\item A successful message is sent to the End-User which is redirected to the main page of the account
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item The personal information are not correct. The system shows an error message and asks the End-User to re-write the incorrect ones.
 \item Debit Card information are not correct. The system shows an error message and asks the End-User to re-write the incorrect ones.
@@ -376,66 +376,64 @@ Exceptions:
 \item The End-User interrupts the registration process clicking to "exit" button. He's redirected to the main page
 \end{itemize}
 \phantomsection
-\textbf{2. End-User charge booking from searching panel}\label{uc:3}
+\textbf{2. Non Registered End-User charging stations map view}\label{uc:1}
 \\
 \\
-Actors: End-User \\ \\
+Actors: Non registered End-User\\ \\
 Entry condition:
 \begin{itemize}
-\item Registered End-User opened the app and logged in.
+\item The End-User does not have an account and has the application opened
 \end{itemize}
 Flow of events:
 \begin{itemize}
-\item The End-User clicks on "book a charge" button.
-\item The End-User clicks on "search charging station" button.
-\item The End-User provides the name of a charging station, clicks on "search" and then select it.
-\item The End-User selects a Day and a type of a socket.
-\item The End-User selects one of the free time-slots available.
-\item The End-User selects an electric vehicle associated to his account.
-\item A summary of the booking with the total cost is displayed.
-\item The End-User clicks on the "Confirm" button.
-\end{itemize}'                                                                     
-Exit conditions:
-\begin{itemize}
-\item A successful message which presents the summary of the booking with also the number of associated charging column , number of associated socket, and the booking id is sent to the End-User.
- \end{itemize}
-Exceptions: 
- \begin{itemize}
- \item The inserted charging station doesn't exists. The system shows an error message and asks the End-User to re-write the research it.
- \item There are no socket of that type available for that day. The system shows an error message and asks the End-User to change the date.
- \item The End-User interrupts the registration process clicking to "exit" button. He's redirected to the main charge booking page
-\end{itemize}
-\phantomsection
-\textbf{3. End-User charge booking from the map panel}\label{uc:4}
-\\
-\\
-Actors: End-User \\ \\
-Entry condition:
-\begin{itemize}
-\item Registered End-User opened the app and logged in.
-\end{itemize}
-Flow of events:
-\begin{itemize}
-\item The End-User clicks on "book a charge" button.
-\item The End-User clicks on "browse map" button.
+\item The End-User clicks on the "Browse Map" button.
+\item A map with all nearby charging station each with a price review is displayed.
 \item The End-User clicks on a charging station in the map.
+\item A description of that charging station is displayed (including price and special offers).
+ account.
+\end{itemize}
+Exit conditions:
+\begin{itemize}
+\item A summary of that charging station is displayed (including price and special offers). If the End-User tries to book a charge with the "book a charge" button the system asks him to login or register.
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item No exceptions for this particular use case
+\end{itemize}
+\phantomsection
+\textbf{3. End-User charge booking}\label{uc:4}
+\\
+\\
+Actors: End-User \\ \\
+Entry condition:
+\begin{itemize}
+\item Registered End-User opened the app and logged in.
+\end{itemize}
+Flow of events:
+\begin{itemize}
+\item The End-User clicks on "browse map" button.
+\item A map with all nearby charging station each with a price review is displayed.
+\item The End-User clicks on a charging station in the map.
+\item A description of that charging station is displayed (including price and special offers).
+\item The End-User clicks on "book a charge" button.
 \item The End-User selects a Day and a type of a socket.
 \item The End-User selects one of the free time-slots available.
 \item The End-User selects an electric vehicle associated to his account.
-\item A summary of the booking with the total cost is displayed.
+\item The End-User selects the amount of charge in percentage.
+\item A summary of the booking is displayed.
 \item The End-User clicks on the "Confirm" button.
 \end{itemize}
 Exit conditions:
 \begin{itemize}
-\item A successful message which presents the summary of the booking with also the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
+\item A successful message which presents the summary of the booking with in particular the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
  \end{itemize}
-Exceptions: 
+Exceptions:
  \begin{itemize}
  \item There are no socket of that type available for that day. The system shows an error message and asks the End-User to change the date.
- \item The End-User interrupts the registration process clicking to "exit" button. He's redirected to the main charge booking page
+ \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the charging stations map.
 \end{itemize}
 \phantomsection
-\textbf{4. End-User benefits from a special offer from the offers panel}\label{uc:5}
+\textbf{4. End-User benefits from a special offer from the list panel}\label{uc:5}
 \\ \\
 Actors: End-User \\ \\
 Entry condition:
@@ -444,60 +442,51 @@ Entry condition:
 \end{itemize}
 Flow of events:
 \begin{itemize}
-\item The End-User clicks on "book a charge" button.
-\item The End-User clicks on "list special offers" button.
-\item The End-User selects a certain offer of a certain charging station.
-\item The End-User selects a Day and a type of a socket.
+\item The End-User clicks on "browse map" button.
+\item The End-User clicks on "list charging stations" button.
+\item The End-User selects a Day, a type of a socket, a price range and an order.
+\item All charging stations with a socket type of the selected one available in the selected Day and with a price included in the price range selected are displayed in the right order.
+\item The End-User selects a certain charging station.
 \item The End-User selects one of the free time-slots available.
 \item The End-User selects an electric vehicle associated to his account.
-\item A summary of the booking with the total cost is displayed.
+\item The End-User selects the amount of charge in percentage.
+\item A summary of the booking is displayed.
 \item The End-User clicks on the "Confirm" button.
 \end{itemize}
 Exit conditions:
 \begin{itemize}
-\item A successful message which presents the summary of the booking with also the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
+\item A successful message which presents the summary of the booking with in particular the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
  \end{itemize}
-Exceptions: 
+Exceptions:
  \begin{itemize}
- \item The selected type of socket and/or the selected day is not considered in the special offer. The system shows an error message and asks the End-User to change it/them.
- \item There are no socket of that type available for that day. The system shows an error message and asks the End-User to change the date.
- \item The End-User interrupts the registration process clicking to "exit" button. He's redirected to the main charge booking page
+ \item There are no charging stations that satisfies the searching conditions. The search result is empty.
+ \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the main charging stations list page
 \end{itemize}
 \phantomsection
-\textbf{5. End-User benefits from a special offer from the map panel}\label{uc:6}
+\textbf{5. End-user personal charge booking view}\label{uc:8}
 \\ \\
-Actors: End-User \\ \\
+Actor: Registered End-User \\ \\
 Entry condition:
 \begin{itemize}
 \item Registered End-User opened the app and logged in.
 \end{itemize}
 Flow of events:
 \begin{itemize}
-\item The End-User clicks on "book a charge" button.
-\item The End-User clicks on "browse map" button.
-\item The End-User clicks on "visualize special offers" button.
-\item The End-User clicks on a charging station in the map.
-\item The End-User selects a Day and a type of a socket.
-\item The End-User selects one of the free time-slots available.
-\item The End-User selects an electric vehicle associated to his account.
-\item A summary of the booking with the total cost is displayed.
-\item The End-User clicks on the "Confirm" button.
+\item End-User clicks on "my Bookings" button.
 \end{itemize}
 Exit conditions:
 \begin{itemize}
-\item A successful message which presents the summary of the booking with also the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
- \end{itemize}
-Exceptions: 
- \begin{itemize}
- \item The selected type of socket and/or the selected day is not considered in the special offer. The system shows an error message and asks the End-User to change it/them.
- \item There are no socket of that type available for that day. The system shows an error message and asks the End-User to change the date.
- \item The End-User interrupts the registration process clicking to "exit" button. He's redirected to the main charge booking page
+\item All available charge bookings are displayed and the End-User can select one of those in order to see a summary of that booking.
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item No charging booking have been made, the systems shows a message which says that the list is empty.
 \end{itemize}
 \phantomsection
 \textbf{6. End-User vehicle charging}\label{uc:7}
 \\ \\
 Actor: End-User \\ \\
-Entry condition: 	
+Entry condition:
 \begin{itemize}
 \item The End-User has previously booked a charge and now is at the charging station near the associated charging column with his vehicle. He also has the application opened displaying the page of the booking.
 \end{itemize}
@@ -506,49 +495,29 @@ Flow of events:
 \item The End-User clicks on "unlock charging column" button.
 \item A successful message is displayed and the associated socket of the booked charging column became available.
 \item The End-User connects his vehicle to the socket.
-\item The charging process starts automatically and the charging column displays progressively the amount of charge done. Also the application displays that the charge is going correctly.
-\item When the charge ends the charging column displays a message.
+\item The charging process starts automatically and the application displays progressively the amount of charge done.
+\item When the booked amount of charge is reached the charging process stops and the application displays a message.
 \item The End-User disconnects the vehicle from the socket.
-\item The End-User clicks, on the application, on "end charge" button.
+\item The End-User clicks on "end charge" button.
 \item The used socket of the charging column is blocked.
 \end{itemize}
 Exit conditions:
 \begin{itemize}
 \item The system makes the payment and displays a successful message to the End-User.
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item The End-User has arrived too late and the booking has been expired. The system shows an error and deletes the booking.
 \item The End-User has arrived too early respects to the time-slot of the booking and is not able to click on "unlock charging column" button.
-\item The charging process cannot be doing correctly. The system shows an error message, displays a list of possible solutions to solve the problem and displays a list of possible solutions to solve the problem.
+\item The charging process cannot be doing correctly. The system shows an error message, displays a list of possible solutions to solve the problem.
 \item The payment has not been successful. The system shows an error message indicating that the balance is still to be paid and displays a list of possible solutions to solve the problem.
 \end{itemize}
 \phantomsection
-\textbf{7. End-user personal charge booking view}\label{uc:8}
-\\ \\
-Actor: Registered End-User \\ \\
-Entry condition: 
-\begin{itemize}
-\item Registered End-User opened the app and logged in.
-\end{itemize}
-Flow of events:
-\begin{itemize}
-\item End-User clicks on "my Bookings" button.
-\end{itemize}
-Exit conditions: 
-\begin{itemize}
-\item All available charge bookings are displayed and the End-User can select one of those in order to see a summary of that booking.
-\end{itemize} 
-Exceptions: 
-\begin{itemize}
-\item No charging booking have been made, the systems shows a message which says that the list is empty.
-\end{itemize}
-\phantomsection
-\textbf{8. CPOW registration}\label{uc:1}
+\textbf{7. CPOW registration}\label{uc:1}
 \\
 \\
 Actors: Non registered CPOW\\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item The CPOW does not have an account and has the application opened
 \end{itemize}
@@ -558,14 +527,14 @@ Flow of events:
 \item The CPOW clicks on the "Register" button.
 \item The CPOW clicks on the "I'm a CPO Worker" button.
 \item The CPOW provides name, surname, date of birth, email address, the associated ID of the CMPS where he works and a special code provided by his employer.
-\item The CPOW provides username and password. 
+\item The CPOW provides username and password.
 \item The CPOW clicks on the “confirm” button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
-\item A successful message is sent to the CPOW which is redirected to the main page of the account 
+\item A successful message is sent to the CPOW which is redirected to the main page of the account
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item The personal information are not correct. The system shows an error message and asks the CPOW to re-write the incorrect ones.
 \item The CMPS ID is incorrect or doesn't exists. The system shows an error message and asks the CPOW to re-write it.
@@ -573,11 +542,11 @@ Exceptions:
 \item The CPOW interrupts the registration process clicking to "exit" button. He's redirected to the main page
 \end{itemize}
 \phantomsection
-\textbf{9. CPO new charging station registration}\label{uc:1}
+\textbf{8. CPO new charging station registration}\label{uc:1}
 \\
 \\
 Actors: Registered CPOW\\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item Registered CPOW opened the app and logged in.
 \end{itemize}
@@ -585,134 +554,23 @@ Flow of events:
 \begin{itemize}
 \item The CPOW clicks on the "Charging Stations" button.
 \item The CPOW clicks on the "New Charging Station" button.
-\item The CPOW provides charging station name, position and ID.
+\item The CPOW provides charging station name, position and physical ID.
 \item The CPOW clicks on the “confirm” button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
 \item A successful message is sent to the CPOW
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item Charging station information are incorrect or it doesn't exists. The system shows an error message and asks the CPOW to re-write it.
 \item The CPOW interrupts the registration process clicking to "exit" button. He's redirected to the main page
 \end{itemize}
 \phantomsection
-\textbf{10. CPO DSOs offers view}\label{uc:8}
+\textbf{9. CPO associated charging stations view}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition: 
-\begin{itemize}
-\item Registered CPOW opened the app and logged in.
-\end{itemize}
-Flow of events:
-\begin{itemize}
-\item The CPOW clicks on "View DSOs Offers" button.
-\item A list of all DSOs offers is displayed.
-\item The CPOW clicks on "Energy Source" button and then selects one or more energy sources.
-\end{itemize}
-Exit conditions: 
-\begin{itemize}
-\item All offers related to DSOs that doesn't offer energy from the energy source selected by the CPOW are discarded from the previous list. CPOW can select one of the new list in order to display a page with further details about that offer.
-\end{itemize} 
-Exceptions: 
-\begin{itemize}
-\item There are no DSOs offers of the selected energy source, the systems shows a message which says that the list is empty.
-\end{itemize}
-\phantomsection
-\textbf{11. CPO energy purchasing from DSO}\label{uc:8}
-\\ \\
-Actor: Registered CPOW \\ \\
-Entry condition: 
-\begin{itemize}
-\item Registered CPOW opened the app, logged in and listed DSOs offers.
-\end{itemize}
-Flow of events:
-\begin{itemize}
-\item The CPOW clicks on a certain DSO offer.
-\item A page with all information about that offer is displayed.
-\item The CPOW clicks on "Acquire energy from this DSO".
-\item The CPOW inserts the start date, end date, and the amount of energy in kilowatt hour.
-\item The CPOW clicks on "Go to Purchase" button.
-\item A summary of the purchase with the total cost and energy delivery starting estimated date is displayed.
-\item The CPOW clicks on "Confirm" button.
-\end{itemize}
-Exit conditions: 
-\begin{itemize}
-\item The system makes the payment and a displays a successful message to the CPOW. 
-\end{itemize} 
-Exceptions: 
-\begin{itemize}
-\item The conditions inserted by the CPOW cannot be satisfied by the DSO. The system shows an error and asks the CPOW to re-write them.
-\item The payment has not been successful. The system shows an error message and invites the CPOW to retry.
-\item The CPOW interrupts the purchasing process clicking to "exit" button. He's redirected to the main page of the account.
-\end{itemize}
-\phantomsection
-\textbf{12. CPO batteries management}\label{uc:8}
-\\ \\
-Actor: Registered CPOW \\ \\
-Entry condition: 
-\begin{itemize}
-\item Registered CPOW opened the app and logged in.
-\end{itemize}
-Flow of events:
-\begin{itemize}
-\item The CPOW clicks on "Batteries Management".
-\item The list of all associated batteries of the charging station are displayed.
-\item The CPOW clicks on one of those.
-\item A page with all features of the battery is displayed.
-\item The CPOW clicks on "Store Energy Into This Battery".
-\item The CPOW clicks on "Confirm" button.
-\end{itemize}
-Exit conditions: 
-\begin{itemize}
-\item The system starts the energy storing process and then shows a successful message to the CPOW.
-\end{itemize} 
-Exceptions: 
-\begin{itemize}
-\item The are no available batteries. The systems shows a message which says that the list is empty.
-\item The energy storing process doesn't work properly. The system stops it, shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
-\end{itemize}
-\phantomsection
-\textbf{13. CPO energy supply decision}\label{uc:8}
-\\ \\
-Actor: Registered CPOW \\ \\
-Entry condition: 
-\begin{itemize}
-\item Registered CPOW opened the app and logged in.
-\end{itemize}
-Flow of events:
-\begin{itemize}
-\item The CPOW clicks on "Energy Supply" button.
-\item A list of all associated charging stations is displayed.
-\item The CPOW clicks on one of those.
-\item A list of all DSOs services purchased and of all charged batteries available with a brief summary of their main features for each of them are displayed.
-\item The CPOW clicks on one of the DSOs services.
-\item The CPOW inserts the amount of energy in kilowatt hour, a starting date and an ending date.
-\item The CPOW clicks on one of the batteries.
-\item The CPOW inserts the amount of energy in kilowatt hour, a starting date and an ending date.
-\item The CPOW clicks on "Continue" button.
-\item A summary of the total energy supply with the percentages of energy provided by each selected service with respects to the total energy used is displayed.
-\item The CPOW clicks on "Confirm" button.
-\end{itemize}
-Exit conditions: 
-\begin{itemize}
-\item The system starts the energy transfer process and then shows a successful message to the CPOW.
-\end{itemize} 
-Exceptions: 
-\begin{itemize}
-\item There are no charging stations available. The systems shows a message which says that the list is empty.
-\item There are no DSOs services purchased and/or charged batteries available. The systems shows a message which says that the list is empty.
-\item The amount of energy selected is higher than the available one. The system shows an error message and invites the CPOW to re-write it.
-\item The starting and ending date selected doesn't match with the delivering period indicated in the DSO's offer. The system shows an error message and invites the CPOW to re-write it.
-\item The energy transfer process doesn't work properly. The system stops it, shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
-\item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
-\end{itemize}
-\phantomsection
-\textbf{14. CPO associated charging stations view}\label{uc:8}
-\\ \\
-Actor: Registered CPOW \\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item Registered CPOW opened the app and logged in.
 \end{itemize}
@@ -722,16 +580,169 @@ Flow of events:
 \item A list of all associated charging stations is displayed.
 \item The CPOW clicks on one of those.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
-\item A page with all features of the selected charging station is displayed.
-\end{itemize} 
-Exceptions: 
+\item A page with all features of the selected charging station is displayed. In particular the page allows the CPOW to see the structure the charging station (number of columns, number and type of sockets... ) and all the bookings associated , view and manage prices, special offers and batteries associated and takes decision about energy furniture.
+\end{itemize}
+Exceptions:
 \begin{itemize}
 \item There are no charging stations available. The systems shows a message which says that the list is empty.
 \end{itemize}
-In the following table is shown which goals are involved in every use case.
+\phantomsection
+\textbf{10. CPO DSOs offers view}\label{uc:8}
+\\ \\
+Actor: Registered CPOW \\ \\
+Entry condition:
+\begin{itemize}
+\item Registered CPOW opened the app and logged in.
+\end{itemize}
+Flow of events:
+\begin{itemize}
+\item The CPOW clicks on "View DSOs Offers" button.
+\item A list of all DSOs offers is displayed.
+\item The CPOW clicks on "Energy Source" button and then selects one or more energy sources.
+\end{itemize}
+Exit conditions:
+\begin{itemize}
+\item All offers related to DSOs that doesn't offer energy from the energy source selected by the CPOW are discarded from the previous list. CPOW can select one of the new list in order to display a page with further details about that offer.
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item There are no DSOs offers of the selected energy source, the systems shows a message which says that the list is empty.
+\end{itemize}
+\phantomsection
+\textbf{11. CPO energy acquiring from DSO}\label{uc:8}
+\\ \\
+Actor: Registered CPOW \\ \\
+Entry condition:
+\begin{itemize}
+\item Registered CPOW opened the app, logged in and listed DSOs offers.
+\end{itemize}
+Flow of events:
+\begin{itemize}
+\item The CPOW clicks on a certain DSO offer.
+\item A page with all information about that offer is displayed.
+\item The CPOW clicks on "Acquire energy from this DSO".
+\item The CPOW selects one of the charging stations associated to him.
+\item The CPOW clicks on "Confirm" button.
+\end{itemize}
+Exit conditions:
+\begin{itemize}
+\item The system displays a successful message to the CPOW.
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item Energy can't be acquired by that DSO for the selected charging station. The system shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
+\item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
+\end{itemize}
+\phantomsection
+\textbf{12. CPO batteries management}\label{uc:8}
+\\ \\
+Actor: Registered CPOW \\ \\
+Entry condition:
+\begin{itemize}
+\item Registered CPOW opened the app, logged in and is in a certain charging station associated page.
+\end{itemize}
+Flow of events:
+\begin{itemize}
+\item The CPOW clicks on "Batteries Management".
+\item A list of all batteries associated to that charging station is displayed.
+\item The CPOW clicks on one of those.
+\item A page with all features about that battery is displayed.
+\item The CPOW clicks on "Store energy" button.
+\end{itemize}
+Exit conditions:
+\begin{itemize}
+\item The system starts the energy storing process and then shows a successful message to the CPOW.
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item The are no available batteries. The systems shows a message which says that the list is empty.
+\item The are no available DSO agreements for the selected charging station. The systems shows an error message.
+\item The energy storing process doesn't work properly. The system stops it, shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
+\end{itemize}
+\phantomsection
+\textbf{13. CPO energy supply decision}\label{uc:8}
+\\ \\
+Actor: Registered CPOW \\ \\
+Entry condition:
+\begin{itemize}
+\item Registered CPOW opened the app, logged in and is in a certain charging station associated page.
+\end{itemize}
+Flow of events:
+\begin{itemize}
+\item The CPOW clicks on "Energy Furniture" button.
+\item A list of all DSOs services purchased and of all charged batteries associated is available with a brief summary of their main features for each of them are displayed.
+\item The CPOW clicks on one of the DSOs services.
+\item The CPOW inserts the amount of energy in percentage.
+\item The CPOW clicks on "Confirm" button.
+\item The CPOW is redirected to the previous list.
+\item The CPOW clicks on one of the batteries.
+\item The CPOW inserts the amount of energy in percentage.
+\item The CPOW clicks on "Confirm" button.
+\item The CPOW is redirected to the previous list.
+\item The CPOW clicks on "Continue" button.
+\item A summary of the total energy supply is displayed.
+\item The CPOW clicks on "Confirm" button.
+\end{itemize}
+Exit conditions:
+\begin{itemize}
+\item The system starts the energy transfer process and then shows a successful message to the CPOW.
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item There are no charging stations available. The systems shows a message which says that the list is empty.
+\item There are no DSO agreements and/or charged batteries available. The systems shows a message which says that the list is empty..
+\item The energy transfer process doesn't work properly. The system stops it, shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
+\item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
+\end{itemize}
+\phantomsection
+\textbf{14. CPO sets a special offer}\label{uc:8}
+\\ \\
+Actor: Registered CPOW \\ \\
+Entry condition:
+\begin{itemize}
+\item Registered CPOW opened the app, logged in and is in a certain charging station associated page.
+\end{itemize}
+Flow of events:
+\begin{itemize}
+\item The CPOW clicks on "Set Special Offer".
+\item The CPOW selects a type of socket, the amount of discount, a start and an end date.
+\item The CPOW clicks on "Confirm" button.
+\end{itemize}
+Exit conditions:
+\begin{itemize}
+\item The system shows a successful message to the CPOW.
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item The are no available DSO agreements for the selected charging station. The systems shows an error message.
+\item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
+\end{itemize}
 
+In the following table is shown which goals are involved in every use case.
+\begin{table}[H]
+  \centering
+  \begin{tabular}{|c|c|c|c|c|}
+    \cline{2-5}
+    \multicolumn{1}{c|}{} & G1 & G2 & G3 & G4 \\ \hline
+    UC1 &   & X &   &   \\ \hline
+    UC2 & X &   &   &   \\ \hline
+    UC3 &   & X &   &   \\ \hline
+    UC4 & X & X &   &   \\ \hline
+    UC5 &   & X &   &   \\ \hline
+    UC6 &   & X &   &   \\ \hline
+    UC7 &   &   & X & X \\ \hline
+    UC8 &   &   & X & X \\ \hline
+    UC9 &   &   & X &   \\ \hline
+    UC10 &   &   &   & X \\ \hline
+    UC11 &   &   &   & X \\ \hline
+    UC12 &   &   & X &   \\ \hline
+    UC13 &   &   & X &   \\ \hline
+    UC14 &   &   & X &   \\ \hline
+  \end{tabular}
+  \caption{Correspondence between use cases and goals}
+\end{table}
 \section{Performance Requirements}
 Performances are particularly critical for eMall system. On the end user side, all operations have to be performed as fast as possible and in the correct order, e.g. overbooking of charging sockets must be avoided. Those specifications must fit also end users with low-speed internet connections. Also on the CPMS side all operations, like switching from battery power to network power, must be performed in less than 1 second. All the computing infrastructure must be thought to be scalable, in order to allow future server capacity to increase due to the increasing number of users.
 
