@@ -11,6 +11,7 @@
 \usepackage{rotating}
 \usepackage[dvipsnames]{xcolor}
 \usepackage{listings}
+\usepackage{alloy-style}
 \usepackage[shortlabels]{enumitem}
 \usepackage{geometry}
 \usepackage{pdflscape}
@@ -329,8 +330,8 @@ All other types of communication, like the one with all third-party software pre
     \item{[R13]} \label{R13} The system must notify the end-user when the charge is complete.
     \item{[R14]} \label{R14} When a charging process is correctly finished the system must charge on the end user selected payment system the correct import.
     \item{[R15]} \label{R15} The system must allow CPOW to register a new charging station through its physical id.
-    \item{[R16]} \label{R16} The system must be able to dynamically select if using batteries, directly the network or a mix of the two for each charging station.
-    \item{[R17]} \label{R17} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them.
+    \item{[R16]} \label{R16} The system must be able to dynamically select if using batteries, directly the network or a mix of the two for each charging station. 
+    \item{[R17]} \label{R17} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them. 
     \item{[R18]} \label{R18} The system must be able to dynamically select which DSO use to provide energy to a specific charging station.
     \item{[R19]} \label{R19} The system must allow CPOWs to manually select which DSO use to provide energy to a specific charging station associated to them.
     \item{[R20]} \label{R20} The system must be able to dynamically decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations .
@@ -350,7 +351,7 @@ In this section the various use cases present in the use case diagram and derive
 \\
 \\
 Actors: Non registered End-User\\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item The End-User does not have an account and has the application opened
 \end{itemize}
@@ -360,14 +361,14 @@ Flow of events:
 \item The End-User clicks on the "Register" button.
 \item The End-User clicks on the "I'm a User" button.
 \item The End-User provides name, surname, date of birth, email address, all information about his debit card and all information about his electric vehicles that he wants to register.
-\item The End-User provides username and password.
+\item The End-User provides username and password. 
 \item The End-User clicks on the “confirm” button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
-\item A successful message is sent to the End-User which is redirected to the main page of the account
+\item A successful message is sent to the End-User which is redirected to the main page of the account 
 \end{itemize}
-Exceptions:
+Exceptions: 
 \begin{itemize}
 \item The personal information are not correct. The system shows an error message and asks the End-User to re-write the incorrect ones.
 \item Debit Card information are not correct. The system shows an error message and asks the End-User to re-write the incorrect ones.
@@ -380,7 +381,7 @@ Exceptions:
 \\
 \\
 Actors: Non registered End-User\\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item The End-User does not have an account and has the application opened
 \end{itemize}
@@ -392,11 +393,11 @@ Flow of events:
 \item A description of that charging station is displayed (including price and special offers).
  account.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
-\item A summary of that charging station is displayed (including price and special offers). If the End-User tries to book a charge with the "book a charge" button the system asks him to login or register.
+\item A summary of that charging station is displayed (including price and special offers). If the End-User tries to book a charge with the "book a charge" button the system asks him to login or register. 
 \end{itemize}
-Exceptions:
+Exceptions: 
 \begin{itemize}
 \item No exceptions for this particular use case
 \end{itemize}
@@ -427,7 +428,7 @@ Exit conditions:
 \begin{itemize}
 \item A successful message which presents the summary of the booking with in particular the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
  \end{itemize}
-Exceptions:
+Exceptions: 
  \begin{itemize}
  \item There are no socket of that type available for that day. The system shows an error message and asks the End-User to change the date.
  \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the charging stations map.
@@ -457,7 +458,7 @@ Exit conditions:
 \begin{itemize}
 \item A successful message which presents the summary of the booking with in particular the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
  \end{itemize}
-Exceptions:
+Exceptions: 
  \begin{itemize}
  \item There are no charging stations that satisfies the searching conditions. The search result is empty.
  \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the main charging stations list page
@@ -466,7 +467,7 @@ Exceptions:
 \textbf{5. End-user personal charge booking view}\label{uc:8}
 \\ \\
 Actor: Registered End-User \\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered End-User opened the app and logged in.
 \end{itemize}
@@ -474,11 +475,11 @@ Flow of events:
 \begin{itemize}
 \item End-User clicks on "my Bookings" button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
 \item All available charge bookings are displayed and the End-User can select one of those in order to see a summary of that booking.
-\end{itemize}
-Exceptions:
+\end{itemize} 
+Exceptions: 
 \begin{itemize}
 \item No charging booking have been made, the systems shows a message which says that the list is empty.
 \end{itemize}
@@ -486,7 +487,7 @@ Exceptions:
 \textbf{6. End-User vehicle charging}\label{uc:7}
 \\ \\
 Actor: End-User \\ \\
-Entry condition:
+Entry condition: 	
 \begin{itemize}
 \item The End-User has previously booked a charge and now is at the charging station near the associated charging column with his vehicle. He also has the application opened displaying the page of the booking.
 \end{itemize}
@@ -505,7 +506,7 @@ Exit conditions:
 \begin{itemize}
 \item The system makes the payment and displays a successful message to the End-User.
 \end{itemize}
-Exceptions:
+Exceptions: 
 \begin{itemize}
 \item The End-User has arrived too late and the booking has been expired. The system shows an error and deletes the booking.
 \item The End-User has arrived too early respects to the time-slot of the booking and is not able to click on "unlock charging column" button.
@@ -517,7 +518,7 @@ Exceptions:
 \\
 \\
 Actors: Non registered CPOW\\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item The CPOW does not have an account and has the application opened
 \end{itemize}
@@ -527,14 +528,14 @@ Flow of events:
 \item The CPOW clicks on the "Register" button.
 \item The CPOW clicks on the "I'm a CPO Worker" button.
 \item The CPOW provides name, surname, date of birth, email address, the associated ID of the CMPS where he works and a special code provided by his employer.
-\item The CPOW provides username and password.
+\item The CPOW provides username and password. 
 \item The CPOW clicks on the “confirm” button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
-\item A successful message is sent to the CPOW which is redirected to the main page of the account
+\item A successful message is sent to the CPOW which is redirected to the main page of the account 
 \end{itemize}
-Exceptions:
+Exceptions: 
 \begin{itemize}
 \item The personal information are not correct. The system shows an error message and asks the CPOW to re-write the incorrect ones.
 \item The CMPS ID is incorrect or doesn't exists. The system shows an error message and asks the CPOW to re-write it.
@@ -546,7 +547,7 @@ Exceptions:
 \\
 \\
 Actors: Registered CPOW\\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered CPOW opened the app and logged in.
 \end{itemize}
@@ -557,11 +558,11 @@ Flow of events:
 \item The CPOW provides charging station name, position and physical ID.
 \item The CPOW clicks on the “confirm” button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
 \item A successful message is sent to the CPOW
 \end{itemize}
-Exceptions:
+Exceptions: 
 \begin{itemize}
 \item Charging station information are incorrect or it doesn't exists. The system shows an error message and asks the CPOW to re-write it.
 \item The CPOW interrupts the registration process clicking to "exit" button. He's redirected to the main page
@@ -570,7 +571,7 @@ Exceptions:
 \textbf{9. CPO associated charging stations view}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered CPOW opened the app and logged in.
 \end{itemize}
@@ -580,11 +581,11 @@ Flow of events:
 \item A list of all associated charging stations is displayed.
 \item The CPOW clicks on one of those.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
 \item A page with all features of the selected charging station is displayed. In particular the page allows the CPOW to see the structure the charging station (number of columns, number and type of sockets... ) and all the bookings associated , view and manage prices, special offers and batteries associated and takes decision about energy furniture.
-\end{itemize}
-Exceptions:
+\end{itemize} 
+Exceptions: 
 \begin{itemize}
 \item There are no charging stations available. The systems shows a message which says that the list is empty.
 \end{itemize}
@@ -592,7 +593,7 @@ Exceptions:
 \textbf{10. CPO DSOs offers view}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered CPOW opened the app and logged in.
 \end{itemize}
@@ -602,11 +603,11 @@ Flow of events:
 \item A list of all DSOs offers is displayed.
 \item The CPOW clicks on "Energy Source" button and then selects one or more energy sources.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
 \item All offers related to DSOs that doesn't offer energy from the energy source selected by the CPOW are discarded from the previous list. CPOW can select one of the new list in order to display a page with further details about that offer.
-\end{itemize}
-Exceptions:
+\end{itemize} 
+Exceptions: 
 \begin{itemize}
 \item There are no DSOs offers of the selected energy source, the systems shows a message which says that the list is empty.
 \end{itemize}
@@ -614,7 +615,7 @@ Exceptions:
 \textbf{11. CPO energy acquiring from DSO}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered CPOW opened the app, logged in and listed DSOs offers.
 \end{itemize}
@@ -626,11 +627,11 @@ Flow of events:
 \item The CPOW selects one of the charging stations associated to him.
 \item The CPOW clicks on "Confirm" button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
-\item The system displays a successful message to the CPOW.
-\end{itemize}
-Exceptions:
+\item The system displays a successful message to the CPOW. 
+\end{itemize} 
+Exceptions: 
 \begin{itemize}
 \item Energy can't be acquired by that DSO for the selected charging station. The system shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
 \item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
@@ -639,7 +640,7 @@ Exceptions:
 \textbf{12. CPO batteries management}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered CPOW opened the app, logged in and is in a certain charging station associated page.
 \end{itemize}
@@ -651,11 +652,11 @@ Flow of events:
 \item A page with all features about that battery is displayed.
 \item The CPOW clicks on "Store energy" button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
 \item The system starts the energy storing process and then shows a successful message to the CPOW.
-\end{itemize}
-Exceptions:
+\end{itemize} 
+Exceptions: 
 \begin{itemize}
 \item The are no available batteries. The systems shows a message which says that the list is empty.
 \item The are no available DSO agreements for the selected charging station. The systems shows an error message.
@@ -665,7 +666,7 @@ Exceptions:
 \textbf{13. CPO energy supply decision}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered CPOW opened the app, logged in and is in a certain charging station associated page.
 \end{itemize}
@@ -685,11 +686,11 @@ Flow of events:
 \item A summary of the total energy supply is displayed.
 \item The CPOW clicks on "Confirm" button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
 \item The system starts the energy transfer process and then shows a successful message to the CPOW.
-\end{itemize}
-Exceptions:
+\end{itemize} 
+Exceptions: 
 \begin{itemize}
 \item There are no charging stations available. The systems shows a message which says that the list is empty.
 \item There are no DSO agreements and/or charged batteries available. The systems shows a message which says that the list is empty..
@@ -700,7 +701,7 @@ Exceptions:
 \textbf{14. CPO sets a special offer}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition:
+Entry condition: 
 \begin{itemize}
 \item Registered CPOW opened the app, logged in and is in a certain charging station associated page.
 \end{itemize}
@@ -710,18 +711,18 @@ Flow of events:
 \item The CPOW selects a type of socket, the amount of discount, a start and an end date.
 \item The CPOW clicks on "Confirm" button.
 \end{itemize}
-Exit conditions:
+Exit conditions: 
 \begin{itemize}
 \item The system shows a successful message to the CPOW.
-\end{itemize}
-Exceptions:
+\end{itemize} 
+Exceptions: 
 \begin{itemize}
 \item The are no available DSO agreements for the selected charging station. The systems shows an error message.
 \item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
 \end{itemize}
 
 In the following table is shown which goals are involved in every use case.
-\begin{table}[H]
+\begin{table}[H]  
   \centering
   \begin{tabular}{|c|c|c|c|c|}
     \cline{2-5}
@@ -759,6 +760,68 @@ Performances are particularly critical for eMall system. On the end user side, a
 \subsection{Portability}
 
 \chapter{Formal Analysis using Alloy}
+The purpose of this chapter is to show, through alloy, a formal analysis of the most important aspects which characterize the whole eMall system. The scope is to define and highlight all the constraints that are absolutely necessary to make the system works properly. All the classes of the class diagram have a correspondence with alloy signatures and also the \textit{enumerations}, which represents the state of a charge (e.g. booked, paid, ..) and the type of a discount, have been modeled. Also some simplifications have been done, i.e. for the representation of time instants the \textit{Time} type of alloy has been used, but for sure it hasn't the same power and clearness of \textit{timestamp} or \textit{datetime} types from high-level programming languages. Some facts have been used to ensure that the most important constraints and requirements are satisfied, as can be seen from the diagrams reported below. In the end, some predicates have been exploited to represent the most important functionalities provided by the system and to generate some simple example worlds. In the following section, all the alloy code is shown and after, some worlds are described, in order to allow easy comprehension of how the system will work.
+\section{Alloy Code}
+\lstinputlisting[language=alloy]{alloy.als}
+
+\section{Worlds}
+We decided to represent three different worlds to give a presentation on the most important aspect of eMall system.
+
+\subsection{First world}
+In the first world, the focus is on the end-user and on the recharge process, as can be seen from figure \ref{fig:world1}. To provide a better clean report we decided to hide the CPO subsystem in order to focus only on the end-user. As can be observed from the picture two end-users that book two different recharge are the main actors. There are two different charging sockets of two different charging columns belonging to the same charging station. The two recharges are on the same charging socket in two different timeframes and users already paid for both. The most important checked constraints are:
+\begin{itemize}
+    \item Only end users with a registered vehicle can be associated with a recharge.
+    \item Only end users with a registered payment method can be associated with a recharge. In that specific case, we see that the different users used the same payment method. This is a kind of situation that can happen. E.g. the two users are a wife and a husband and decided to pay with the same debit card. This assumption can be supported by the fact that the two recharges are consecutive (one starts when the other end) so they might be together with their two electric cars.
+    \item The target vehicle of each recharge must be associated with the end user who books the recharge.
+    \item More recharges can't happen in the same socket at the same time.
+    \item Status must be coherent (e.g. a recharge scheduled after another can't be paid if the other one is still booked).
+    \item Charging sockets belongs to only one charging column that belongs to only one charging station.
+\end{itemize}
+
+\subsection{Second world}
+In the second world, we move our focus on the CPO subsystem, as can be seen in figure \ref{fig:world2}. Also in this case, to provide a cleaner report users and recharges have been hidden. Now the main actors are two CPOWs that manage two different CPMSs and so work for two different CPOs. Both the CPMS exploit a single DSO to provide energy furnitures. The first CPMS manages a charging station and the second two. The first provides from the DSO energy furniture to a battery of his charging station and the second one provides two energy furniture to a battery and the other two to two different charging sockets of the two different charging stations he manages. The most important checked constraints are:
+\begin{itemize}
+    \item Each CPOW works for one and only one CPO and can access one and only one CPMS.
+    \item The CPMS that each CPOW access must be the one of the CPO he is working for.
+    \item Each energy furniture must be controlled by a CPMS that exploits the DSO from which it comes from.
+    \item Each energy furniture must recharge a battery or a charging socket of a charging station that is managed by the CPMS which controls that specific energy furniture.
+    \item In order to be active, each charging socket must be associated with an energy furniture, or at least the charging station it belongs to must have at least a battery that is associated with an energy furniture.
+    \item Different CPOs can work with different eMSPs.
+    \item Different CPOs can work with the same DSO.
+    \item Charging sockets belongs to only one charging column that belongs to only one charging station.
+\end{itemize}
+
+\subsection{Dynamic world}
+Some dynamic modeling has been done in alloy. The most important functions have been represented as predicates. Most of them are trivial and for completeness, we report in figure \ref{fig:provideEnergy} the \textit{provideEnergyFurnitureToBatteryOne}. The main purpose of this predicate is to exploit a new DSO to provide an energy furniture to a battery of a charging station managed by the interested CPMS.
+
+\newgeometry{bottom=2cm}
+\begin{landscape}
+
+\begin{figure}[hp]
+\includegraphics[angle=0, scale=0.55]{world1}
+\caption{Alloy World n.1}
+\label{fig:world1}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\includegraphics[angle=0, scale = 0.65]{world2}
+\caption{Alloy World n.2}
+\label{fig:world2}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\includegraphics[angle=0, scale=0.6]{dynamicWorld}
+\caption{Alloy predicate \textit{provideEnergyFurnitureToBattery}}
+\label{fig:provideEnergy}
+\end{figure}
+\end{landscape}
+
+
+\restoregeometry
 
 \chapter{Effort spent}
 
