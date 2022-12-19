@@ -378,7 +378,30 @@ Exceptions:
 \item The End-User interrupts the registration process clicking to "exit" button. He's redirected to the main page
 \end{itemize}
 \phantomsection
-\textbf{2. Non Registered End-User charging stations map view}\label{uc:1}
+\textbf{2. Log in}\label{uc:1}
+\\
+\\
+Actors: Registered End-User or CPOW\\ \\
+Entry condition:
+\begin{itemize}
+\item The End-User/CPOW has the application opened
+\end{itemize}
+Flow of events:
+\begin{itemize}
+\item The End-User/CPOW clicks on the "Login or Register" button.
+\item The End-User/CPOW inserts username and password.
+\item The End-User/CPOW clicks on the “Login” button.
+\end{itemize}
+Exit conditions:
+\begin{itemize}
+\item The End-User/CPOW is redirected to the main page of the account
+\end{itemize}
+Exceptions:
+\begin{itemize}
+\item Username and/or Password are/is incorrect. The system shows an error message and asks the End-User to re-write it.
+\end{itemize}
+\phantomsection
+\textbf{3. Non Registered End-User charging stations map view}\label{uc:1}
 \\
 \\
 Actors: Non registered End-User\\ \\
@@ -391,7 +414,7 @@ Flow of events:
 \item The End-User clicks on the "Browse Map" button.
 \item A map with all nearby charging station each with a price review is displayed.
 \item The End-User clicks on a charging station in the map.
-\item A description of that charging station is displayed (including price and special offers).
+\item A short description of that charging station is displayed (including price and special offers).
  account.
 \end{itemize}
 Exit conditions:
@@ -403,7 +426,7 @@ Exceptions:
 \item No exceptions for this particular use case
 \end{itemize}
 \phantomsection
-\textbf{3. End-User charge booking}\label{uc:4}
+\textbf{4. End-User charge booking}\label{uc:4}
 \\
 \\
 Actors: End-User \\ \\
@@ -416,7 +439,7 @@ Flow of events:
 \item The End-User clicks on "browse map" button.
 \item A map with all nearby charging station each with a price review is displayed.
 \item The End-User clicks on a charging station in the map.
-\item A description of that charging station is displayed (including price and special offers).
+\item A short description of that charging station is displayed (including price and special offers).
 \item The End-User clicks on "book a charge" button.
 \item The End-User selects a Day and a type of a socket.
 \item The End-User selects one of the free time-slots available.
@@ -435,7 +458,7 @@ Exceptions:
  \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the charging stations map.
 \end{itemize}
 \phantomsection
-\textbf{4. End-User benefits from a special offer from the list panel}\label{uc:5}
+\textbf{5. End-User benefits from a special offer from the list panel}\label{uc:5}
 \\ \\
 Actors: End-User \\ \\
 Entry condition:
@@ -465,7 +488,7 @@ Exceptions:
  \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the main charging stations list page
 \end{itemize}
 \phantomsection
-\textbf{5. End-User vehicle charging}\label{uc:7}
+\textbf{6. End-User vehicle charging}\label{uc:7}
 \\ \\
 Actor: End-User \\ \\
 Entry condition:
@@ -483,8 +506,8 @@ Flow of events:
 \item The charging process starts automatically and the application displays progressively the amount of charge done.
 \item When the booked amount of charge is reached the charging process stops and the application displays a message.
 \item The End-User disconnects the vehicle from the socket.
-\item The End-User clicks on "end charge" button.
 \item The used socket of the charging column is blocked.
+\item The End-User clicks on "end charge" button.
 \end{itemize}
 Exit conditions:
 \begin{itemize}
@@ -498,7 +521,7 @@ Exceptions:
 \item The payment has not been successful. The system shows an error message indicating that the balance is still to be paid and displays a list of possible solutions to solve the problem.
 \end{itemize}
 \phantomsection
-\textbf{6. CPO charging station registration}\label{uc:1}
+\textbf{7. CPO charging station registration}\label{uc:1}
 \\
 \\
 Actors: Registered CPOW\\ \\
@@ -523,7 +546,7 @@ Exceptions:
 \item The CPOW interrupts the registration process clicking to "exit" button. He's redirected to the main page
 \end{itemize}
 \phantomsection
-\textbf{7. CPO energy acquiring from DSO}\label{uc:8}
+\textbf{8. CPO energy acquiring from DSO}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
 Entry condition:
@@ -537,7 +560,6 @@ Flow of events:
 \item The CPOW clicks on a certain DSO offer.
 \item A page with all information about that offer is displayed.
 \item The CPOW clicks on "Acquire energy from this DSO".
-\item The CPOW selects one of the charging stations associated to him.
 \item The CPOW clicks on "Confirm" button.
 \end{itemize}
 Exit conditions:
@@ -550,7 +572,7 @@ Exceptions:
 \item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
 \end{itemize}
 \phantomsection
-\textbf{8. CPO batteries management}\label{uc:8}
+\textbf{9. CPO batteries management}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
 Entry condition:
@@ -582,7 +604,7 @@ the list is empty.
 \item The energy storing process doesn't work properly. The system stops it, shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
 \end{itemize}
 \phantomsection
-\textbf{9. CPO energy supply}\label{uc:8}
+\textbf{10. CPO energy supply}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
 Entry condition:
@@ -621,7 +643,7 @@ Exceptions:
 \item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
 \end{itemize}
 \phantomsection
-\textbf{10. CPOW set a special offer}\label{uc:8}
+\textbf{11. CPOW set a special offer}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
 Entry condition:
@@ -674,10 +696,11 @@ In the following table is shown which goals are involved in every use case.
 \end{table}
 \subsection{Use cases diagrams }
 In figure 3.1, 3.2 and 3.3 are reported the UML Use Case Diagrams of the Visitor, the End-User and the CPOW respectively.
-
+\subsection{Sequence diagrams }
+In figure 3.4, 3.5, 3.6, 3.7 and 3.8 are reported the UML Sequence Diagrams for the most interesting Use Cases.
 \newgeometry{top=0cm}
 \begin{figure}[p]
-\includegraphics[width=\textwidth]{RASD/img/UC_Visitor.png}
+\includegraphics[width=\textwidth]{RASD/img/UC_Visitor}
 \caption{Visitor UML Use Case Diagram}
 \label{fig:class-diagramRASD}
 \end{figure}
@@ -693,6 +716,44 @@ In figure 3.1, 3.2 and 3.3 are reported the UML Use Case Diagrams of the Visitor
 \begin{figure}[p]
 \includegraphics[width=\textwidth]{RASD/img/UC_CPOW.png}
 \caption{CPOW UML Use Case Diagram}
+\label{fig:class-diagramRASD}
+\end{figure}
+\restoregeometry
+
+
+
+\newgeometry{top=0.5cm}
+\begin{figure}[p]
+\includegraphics[width=\textwidth]{RASD/img/SD_LogIn.png}
+\caption{Sequence Diagram for Use Case n° 2 (Log In)}
+\label{fig:class-diagramRASD}
+\end{figure}
+
+\begin{figure}[p]
+\includegraphics[width=\textwidth]{RASD/img/SD_ChargeBooking.png}
+\caption{Sequence Diagram for Use Case n°4 (End-User charge booking)}
+\label{fig:class-diagramRASD}
+\end{figure}
+\restoregeometry
+
+\newgeometry{top=0cm}
+\begin{figure}[p]
+\includegraphics[width=\textwidth]{RASD/img/SD_ChargingVehicle_v2.png}
+\caption{Sequence Diagram for Use Case n°6 (End-User vehicle charging)}
+\label{fig:class-diagramRASD}
+\end{figure}
+\restoregeometry
+
+\newgeometry{top=0.5cm}
+\begin{figure}[p]
+\includegraphics[width=\textwidth]{RASD/img/SD_EnergyAcquiringFromDSO_v2.png}
+\caption{Sequence Diagram for Use Case n°8 (CPO energy acquiring from DSO)}
+\label{fig:class-diagramRASD}
+\end{figure}
+
+\begin{figure}[p]
+\includegraphics[width=\textwidth]{RASD/img/SD_EnergySupply_v2.png}
+\caption{Sequence Diagram for Use Case n°10 (CPO energy supply)}
 \label{fig:class-diagramRASD}
 \end{figure}
 \restoregeometry
