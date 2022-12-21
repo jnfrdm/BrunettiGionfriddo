@@ -59,9 +59,9 @@
 \centering{\large{
 Academic Year 2022/2023 \\
 \vspace{10mm}
-Milano, --/--/2022 \\
+Milano, 21/12/2022 \\
 \vspace{2mm}
-Version 1.0 
+Version 1.0
 }}
 
 \end{titlepage}
@@ -76,7 +76,7 @@ Version 1.0
 \restoregeometry
 \chapter{Introduction}
 \section{Scope}
-eMall is a system meant to provide services for charging electric vehicles and managing charging stations. This is meant both for normal people (i.e. end users) and for CPO workers. 
+eMall is a system meant to provide services for charging electric vehicles and managing charging stations. This is meant both for normal people (i.e. end users) and for CPO workers.
 The application domain concerns different types of world phenomena, shared phenomena and machine phenomena. \\
 We can identify the followings world phenomena:
 \begin{itemize}
@@ -84,7 +84,7 @@ We can identify the followings world phenomena:
 \item {[W2]} \label{W2}DSOs provide energy to their associated charging stations.
 \item {[W3]} \label{W3}Batteries, if available and enabled, store energy from DSOs and provide it to the charging station.
 \item {[W4]} \label{W4}Charging sockets are supplied directly by DSO through the network and/or by batteries of the charging station.
-\end{itemize} 
+\end{itemize}
 the following shared phenomena controlled by the world and observed by the machine:
 \begin{itemize}
 \item {[S1]} A user books a charge in a charging station.
@@ -104,13 +104,13 @@ and the following shared phenomena controlled by the machine and observed by the
 The system is characterized by the following goals:
 \begin{itemize}
 \item{[G1]} \label{G1}Users must know position, prices and special offers of charging stations.
-\item {[G2]} \label{G2}Users must be able to complete the whole process of charging for their electric vehicles.	
+\item {[G2]} \label{G2}Users must be able to complete the whole process of charging for their electric vehicles.
 \item  {[G3]} \label{G3}CPOs workers must be able to manage charging stations associated to their CPO.
 \item  {[G4]} \label{G4}CPOs must be able to communicate with DSOs in order to provide energy furniture.
 \end{itemize}
 
 In the following table is shown which world and shared phenoma are involved for each goal.
-\begin{table}[H]  
+\begin{table}[H]
   \centering
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|}
     \cline{2-13}
@@ -134,7 +134,7 @@ In the following table is shown which world and shared phenoma are involved for 
 \end{itemize}
 \section{Revision history}
 \begin{itemize}
-\item --/--/2022 Version 1.0.
+\item 21/12/2022 Version 1.0.
 \end{itemize}
 \section{Reference documents}
 \begin{itemize}
@@ -143,7 +143,7 @@ In the following table is shown which world and shared phenoma are involved for 
 \section{Document structure}
 
 The document consists of 6 different chapters:
-\\ 
+\\
 \\
 \textbf{Chapter 1}: in this first chapter the application domain is presented starting with the scope, which includes world and shared phenomena that the application can observe and/or control. Furthermore, in the purpose section, the main goals are presented and at the end, some basic information is provided in order to help in the understanding of the whole document.\\ \\
 \textbf{Chapter 2}: the second chapter starts with an overall description of the whole application, made by the definition of the most important possible scenarios which will involve the different types of users and their relationships with the eMall system. Some UML diagrams, i.e. class diagram and state diagrams, are here provided to help to understand which are the different entities of the system and how they should work together in order to provide all required functionalities. The chapter contains also an exhaustive explanation of the main product functions, a description of the different actors, and a list of all needed domain assumptions.\\ \\
@@ -179,7 +179,7 @@ This night 4 batteries of charging station 1046 have to be removed following the
 Yesterday a new charging station has been opened in the parking of the city shopping center and this morning the manager knocks on the door of the office of the CPOW who manage, trough the CMPS, that specific station, in order to see if there are already some users. The CPOW opens his web interface, selects charging station 1050, and clicks on show statistics. The charging station is composed of 6 charging sockets, 3 at fast-speed and 3 at medium-speed, and 10 batteries. Currently, 2 cars are charging: the first one is a Honda-e, connected to socket 1 (fast-speed charge), that has absorbed 19/35.5kwh of power and will take 12 minutes to complete the charging process. The second one is a Hyundai	Kona Electric, which is connected to socket 4 (medium-speed charge), that has absorbed 10/64kwh of power and will take 55 minutes to complete the charging process. The CPOW and the manager see also that 12 other recharges have been booked from now to midnight, 7 on fast-speed sockets and 5 on medium-speed ones. Actually only one of the 10 batteries is at 53\% of his charge and the remaining 9 are all full. The manager is pretty satisfied since it is only the second day since the station has opened and he can see encouraging results. So he invites the CPOW for a coffee break and they go to the coffee machine together.
 
 \subsubsection{CPOW manually decides where to get energy}
-A CPO company made a deal with a DSO company and if they will purchase energy only from them for one month they will reduce the price making it the most convenient for the CPO. So all CPOWs of the interested CPO have been instructed to proceed in this way. We took as an example one of them. This specific CPOW decides to have a look at the different offers from all available DSO and he notices that actually the one of the deal isn't the cheaper, so the system won't dynamically decide to acquire energy from that specific company. So, through the web interface of the CMPS, he switches off the auto-deciding acquisition for all the charging stations under his control and set the specific DSO as the only supplier. He also sets all charging stations to use only energy from the batteries until they are empty trying to save some money using before all the already purchased energy that is available. 
+A CPO company made a deal with a DSO company and if they will purchase energy only from them for one month they will reduce the price making it the most convenient for the CPO. So all CPOWs of the interested CPO have been instructed to proceed in this way. We took as an example one of them. This specific CPOW decides to have a look at the different offers from all available DSO and he notices that actually the one of the deal isn't the cheaper, so the system won't dynamically decide to acquire energy from that specific company. So, through the web interface of the CMPS, he switches off the auto-deciding acquisition for all the charging stations under his control and set the specific DSO as the only supplier. He also sets all charging stations to use only energy from the batteries until they are empty trying to save some money using before all the already purchased energy that is available.
 
 \subsection{Class diagram}
 The UML class diagram which describes the domain application is presented in figure \ref{fig:class-diagramRASD}. The User class is abstract and both EndUser and CPOW classes inherit from it since are the two different types of users of the whole system. Each EndUser is registered to at least one eMSP, owns vehicles and can book recharges which refer to them. Each recharge has a status and happens in a charging socket of a charging station related to one of the eMSP that the user is registered to. Charging stations are composed of charging columns which are in turn composed of charging sockets and optionally also of batteries. There can be discounts associated to them. Each charging station refers to a specific eMSP. Each CPO administrates one and only one CPMS that manages one or more charging stations and can use DSOs to purchase energy forniture. There is a provisional class that is EnergyForniture, because at this stage of the project the best way to keep track of energy furniture is to separate them and locate different bills in different objects. This is meant in order to have a detailed report of the precise amount of energy purchased, its price and its destination since each energy forniture can refer to one/more batteries or directly to one/more charging sockets.
@@ -277,7 +277,7 @@ In the following rows domain assumptions are presented:
 \item{[D4]} \label{D4} A unique identifier has been associated physically to every charging station.
 \item{[D5]} \label{D5} CPOs must manage their charging station only through his related CPMS.
 \item{[D6]} \label{D6} Energy can't be supplied by different DSOs at the same time to the same charging station.
-\item{[D7]} \label{D7} Charging sockets can't be supplied by both batteries and the network at the same time.
+\item{[D7]} \label{D7} Each charging socket can't be supplied by both batteries and the network at the same time.
 \item{[D8]} \label{D8} Every end user make charges at the charging station with the specific vehicle he has booked for.
 \item{[D9]} \label{D9} The networks that allows the energy furniture from DSOs to charging sockets or batteries must work properly.
 \item{[D10]} \label{D10} The system exploits APIs to retrieve information about energy prices from different DSOs.
@@ -301,7 +301,7 @@ Since eMall is a software system, no specific hardware interfaces are provided t
 \subsection{Software Interfaces}
 Since no other applications need to retrieve any kind of data from eMall there are no software interfaces provided. But, like for Hardware Interfaces, the system exploits third-party software as reported in the dependencies section and also other APIs for information retrieval (e.g. DSOs prices) as declared in the domain assumption section.
 \subsection{Communication Interfaces}
-The whole eMall service is based on communication between different actors. Both the mobile app and CPMS communicate with the central eMall server through uniform internal APIs exploiting HTTPS protocol. In either the two subsystems type of communication is bidirectional, they need to send and receive data from the central server. For example, the mobile app must get updated availabilities of free charging slots but also update the central server when a booking is made. On the other side, also CPMS must always get updated information from the server, but also set, for example, a new DSO for a certain charging station. 
+The whole eMall service is based on communication between different actors. Both the mobile app and CPMS communicate with the central eMall server through uniform internal APIs exploiting HTTPS protocol. In either the two subsystems type of communication is bidirectional, they need to send and receive data from the central server. For example, the mobile app must get updated availabilities of free charging slots but also update the central server when a booking is made. On the other side, also CPMS must always get updated information from the server, but also set, for example, a new DSO for a certain charging station.
 
 Also communication with all the charging stations is necessary. In detail, the main server communicates with charging stations always through internal uniform APIs. Furthermore, RFID technology is exploited to allow communication between the mobile app and the charging socket (i.e. for unlocking the charging socket). In particular, mobile phones communicate with the RFID receiver of the sockets.
 
@@ -314,7 +314,7 @@ All other types of communication, like the one with all third-party software pre
     \item{[R1]} \label{R1} The system must allow unregistered/registered users to see a map of available charging stations and their prices and offers.
     \item{[R2]} \label{R2} The system must allow unregistered/registered users to see a list of charging stations and filter on it (e.g. offers, prices and positions).
     \item{[R3]} \label{R3} The system must allow unregistered users to register as end user or CPOW (if they have a badge id).
-    \item{[R4]} \label{R4} The system must verify if the all data inserted by users are correct (e.g. personal data, vehicle and payment method information, charging station ID).   
+    \item{[R4]} \label{R4} The system must verify if the all data inserted by users are correct (e.g. personal data, vehicle and payment method information, charging station ID).
     \item{[R5]} \label{R5} The system must allow registered end users or CPOW to log in through their username and password.
     \item{[R6]} \label{R6} The system must allow registered end users to associate vehicles to their account and keep track of them.
     \item{[R7]} \label{R7} The system must allow registered end users to associate payment methods to their account.
@@ -326,8 +326,8 @@ All other types of communication, like the one with all third-party software pre
     \item{[R13]} \label{R13} The system must notify the end-user when the charge is complete.
     \item{[R14]} \label{R14} When a charging process is correctly finished the system must charge on the end user selected payment system the correct import.
     \item{[R15]} \label{R15} The system must allow CPOW to register a new charging station through its physical id.
-    \item{[R16]} \label{R16} The system must be able to dynamically select if using batteries, directly the network or a mix of the two for each charging station. 
-    \item{[R17]} \label{R17} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them. 
+    \item{[R16]} \label{R16} The system must be able to dynamically select if using batteries, directly the network or a mix of the two for each charging station.
+    \item{[R17]} \label{R17} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them.
     \item{[R18]} \label{R18} The system must be able to dynamically select which DSO use to provide energy to a specific charging station.
     \item{[R19]} \label{R19} The system must allow CPOWs to manually select which DSO use to provide energy to a specific charging station associated to them.
     \item{[R20]} \label{R20} The system must be able to dynamically decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations .
@@ -341,7 +341,7 @@ All other types of communication, like the one with all third-party software pre
 \end{itemize}
 
 In the following table is shown which Domain Assumptions and Requirements are involved for each goal.
-\begin{table}[H]  
+\begin{table}[H]
   \centering
   \begin{tabular}{|c|c|c|c|}
     \cline{2-3}
@@ -361,7 +361,7 @@ In this section the various use cases present in the use case diagram and derive
 \\
 \\
 Actors: Non registered End-User or CPOW\\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item The End-User/CPOW does not have an account and has the application/web interface opened
 \end{itemize}
@@ -371,14 +371,14 @@ Flow of events:
 \item The End-User/CPOW clicks on the "Register" button.
 %\item The End-User/CPOW clicks on the "I'm a User"/"I'm a CPOW" button.
 \item The End-User/CPOW provides name, surname, date of birth, email address, all information about his debit card and all information about his electric vehicles that he wants to register/the associated ID of the CMPS where he works and a special code provided by his employer.
-\item The End-User/CPOW provides username and password. 
+\item The End-User/CPOW provides username and password.
 \item The End-User/CPOW clicks on the “confirm” button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
-\item A successful message is sent to the User which is redirected to the main page of the account 
+\item A successful message is sent to the User which is redirected to the main page of the account
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item The personal information are not correct. The system shows an error message and asks the End-User to re-write the incorrect ones.
 \item Debit Card information are not correct. The system shows an error message and asks the End-User to re-write the incorrect ones.
@@ -392,21 +392,21 @@ Exceptions:
 \\
 \\
 Actors: Registered End-User or CPOW\\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item The End-User/CPOW has the application/web service opened
 \end{itemize}
 Flow of events:
 \begin{itemize}
 \item The End-User/CPOW clicks on the "Login or Register" button.
-\item The End-User/CPOW inserts username and password. 
+\item The End-User/CPOW inserts username and password.
 \item The End-User/CPOW clicks on the “Login” button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
-\item The End-User/CPOW is redirected to the main page of the account 
+\item The End-User/CPOW is redirected to the main page of the account
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item Username and/or Password are/is incorrect. The system shows an error message and asks the End-User to re-write it.
 \end{itemize}
@@ -415,7 +415,7 @@ Exceptions:
 \\
 \\
 Actors: Non registered End-User\\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item The End-User does not have an account and has the application opened
 \end{itemize}
@@ -427,11 +427,11 @@ Flow of events:
 \item A short description of that charging station is displayed (including price and special offers).
  account.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
-\item A summary of that charging station is displayed (including price and special offers). If the End-User tries to book a charge with the "book a charge" button the system asks him to login or register. 
+\item A summary of that charging station is displayed (including price and special offers). If the End-User tries to book a charge with the "book a charge" button the system asks him to login or register.
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item No exceptions for this particular use case
 \end{itemize}
@@ -462,7 +462,7 @@ Exit conditions:
 \begin{itemize}
 \item A successful message which presents the summary of the booking with in particular the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
  \end{itemize}
-Exceptions: 
+Exceptions:
  \begin{itemize}
  \item There are no socket of that type available for that day. The system shows an error message and asks the End-User to change the date.
  \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the charging stations map.
@@ -492,7 +492,7 @@ Exit conditions:
 \begin{itemize}
 \item A successful message which presents the summary of the booking with in particular the number of associated charging column, number of associated socket and the booking id is sent to the End-User.
  \end{itemize}
-Exceptions: 
+Exceptions:
  \begin{itemize}
  \item There are no charging stations that satisfies the searching conditions. The search result is empty.
  \item The End-User interrupts the booking process clicking to "exit" button. He's redirected to the main charging stations list page
@@ -501,7 +501,7 @@ Exceptions:
 \textbf{6. End-User vehicle charging}\label{uc:7}
 \\ \\
 Actor: End-User \\ \\
-Entry condition: 	
+Entry condition:
 \begin{itemize}
 \item The End-User has previously booked a charge and now is at the charging station near the associated charging column with his vehicle. He has opened the application and logged in.
 \end{itemize}
@@ -523,7 +523,7 @@ Exit conditions:
 \begin{itemize}
 \item The system elaborates the payment and displays a successful message to the End-User.
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item The End-User has arrived too late and the booking has been expired. The system shows an error and deletes the booking.
 \item The End-User has arrived too early respects to the time-slot of the booking and is not able to click on "unlock charging column" button.
@@ -535,7 +535,7 @@ Exceptions:
 \\
 \\
 Actors: Registered CPOW\\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item Registered CPOW opened the app and logged in.
 \end{itemize}
@@ -546,11 +546,11 @@ Flow of events:
 \item The CPOW provides charging station name, position and physical ID.
 \item The CPOW clicks on the “confirm” button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
 \item A successful message is sent to the CPOW
 \end{itemize}
-Exceptions: 
+Exceptions:
 \begin{itemize}
 \item Charging station information are incorrect or it doesn't exists. The system shows an error message and asks the CPOW to re-write it.
 \item The CPOW interrupts the registration process clicking to "exit" button. He's redirected to the main page
@@ -559,7 +559,7 @@ Exceptions:
 \textbf{8. CPO energy acquiring from DSO}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item Registered CPOW opened the app, logged in.
 \end{itemize}
@@ -572,11 +572,11 @@ Flow of events:
 \item The CPOW clicks on "Acquire energy from this DSO".
 \item The CPOW clicks on "Confirm" button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
-\item The system displays a successful message to the CPOW. 
-\end{itemize} 
-Exceptions: 
+\item The system displays a successful message to the CPOW.
+\end{itemize}
+Exceptions:
 \begin{itemize}
 \item Energy can't be acquired by that DSO for the selected charging station. The system shows an error message to the CPOW and displays a list of possible solutions to solve the problem.
 \item The CPOW interrupts the process clicking to "exit" button. He's redirected to the main page of the account.
@@ -585,7 +585,7 @@ Exceptions:
 \textbf{9. CPO batteries management}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item Registered CPOW opened the app, logged in.
 \end{itemize}
@@ -601,11 +601,11 @@ Flow of events:
 \item A page with all features about that battery is displayed.
 \item The CPOW clicks on "Store energy" button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
 \item The system starts the energy storing process and then shows a successful message to the CPOW.
-\end{itemize} 
-Exceptions: 
+\end{itemize}
+Exceptions:
 \begin{itemize}
 \item There are no charging stations available. The systems shows a message which says that
 the list is empty.
@@ -617,7 +617,7 @@ the list is empty.
 \textbf{10. CPO energy supply}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item Registered CPOW opened the app, logged in.
 \end{itemize}
@@ -641,11 +641,11 @@ Flow of events:
 \item A summary of the total energy supply is displayed.
 \item The CPOW clicks on "Confirm" button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
 \item The system starts the energy transfer process and then shows a successful message to the CPOW.
-\end{itemize} 
-Exceptions: 
+\end{itemize}
+Exceptions:
 \begin{itemize}
 \item There are no charging stations available. The systems shows a message which says that the list is empty.
 \item There are no DSO agreements and/or charged batteries available. The systems shows a message which says that the list is empty..
@@ -656,7 +656,7 @@ Exceptions:
 \textbf{11. CPOW set a special offer}\label{uc:8}
 \\ \\
 Actor: Registered CPOW \\ \\
-Entry condition: 
+Entry condition:
 \begin{itemize}
 \item Registered CPOW opened the app, logged in.
 \end{itemize}
@@ -670,11 +670,11 @@ Flow of events:
 \item The CPOW selects a type of socket, the amount of discount, a start and an end date.
 \item The CPOW clicks on "Confirm" button.
 \end{itemize}
-Exit conditions: 
+Exit conditions:
 \begin{itemize}
 \item The system shows a successful message to the CPOW.
-\end{itemize} 
-Exceptions: 
+\end{itemize}
+Exceptions:
 \begin{itemize}
 \item There are no charging stations available. The systems shows a message which says that the list is empty.
 \item The are no available DSO agreements for the selected charging station. The systems shows an error message.
@@ -682,7 +682,7 @@ Exceptions:
 \end{itemize}
 
 In the following table is shown which goals are involved in every use case.
-\begin{table}[H]  
+\begin{table}[H]
   \centering
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
     \cline{2-12}
@@ -696,13 +696,13 @@ In the following table is shown which goals are involved in every use case.
 \end{table}
 
 In the following table is shown which requirements are involved in every use case.
-\begin{table}[H]  
+\begin{table}[H]
   \centering
   \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
     \cline{2-12}
     \multicolumn{1}{c|}{} & UC1 & UC2 & UC3 & UC4 & UC5 & UC6 & UC7 & UC8 & UC9 & UC10 & UC11 \\ \hline
-    R1 & X & 
-    
+    R1 & X &
+
     X & X &  &  &  &  &  &  &  &  \\ \hline
     R2 & X & X &  &  & X &  &  &  &  &  &  \\ \hline
     R3 & X &  &  &  &  &  &  &  &  &  &  \\ \hline
@@ -813,7 +813,7 @@ The mobile application devoted to end users usage needs the following requiremen
             \item The mobile phone of end users must support RFID communication protocol in order to be able to unlock the charging sockets.
             \item Also a GPS is necessary to show the map of near charging stations.
             \item The device must be connected to an internet connection in order to be able to perform any operation.
-        \end{itemize} 
+        \end{itemize}
     \item \textbf{Operating system}: since the main purpose of the system is e-mobility for \textbf{all}, the mobile application will be compatible also with older smartphones and minimum requirements are set quite low.
         \begin{itemize}
             \item Android 5.0 (Lollipop)
@@ -903,8 +903,40 @@ Some dynamic modeling has been done in alloy. The most important functions have 
 \restoregeometry
 
 \chapter{Effort spent}
+\begin{table}[H]
+\centering
 
+Matteo Gionfriddo\\
+\begin{tabular}{p{2cm}p{1.5cm}p{7cm}}
+\toprule
+\textit{Date} & \textit{Hour} & \textit{Section} \\ \midrule
+09-11-2022 & 1.5 h* & Goals \\ \midrule
+15-11-2022 & 1.5 h & World and Shared Phenomena and Table 1.1 \\ \midrule
+19-11-2022 & 1 h & Use Cases\\ \midrule
+22-11-2022 & 1 h & Use Cases \\ \midrule
+27-11-2022 & 1 h & Use Cases \\ \midrule
+29-11-2022 & 1 h & Use Cases \\ \midrule
+30-11-2022 & 1 h* & Domain Assumptions \\ \midrule
+04-12-2022 & 3 h* & Requirements \\ \midrule
+07-12-2022 & 1.5 h & Use Cases and Table 3.2\\ \midrule
+11-12-2022 & 2 h & UML Use Case Diagram\\  \midrule
+13-12-2022 & 1.5 h & UML Use Case Diagram\\  \midrule
+15-12-2022 & 1 h & Revision Use Cases\\ \midrule
+17-12-2022 & 1.5 h & UML Sequence Diagram\\ \midrule
+19-12-2022 & 2 h & UML Sequence Diagram\\ \midrule
+20-12-2022 & 1.5 h & Table 3.1, Table 3.3 \\ \midrule
+21-12-2022 & 2.5 h* & Final Revision \\ \midrule
 
+\bottomrule
+\end{tabular}
+\caption[Matteo Gionfriddo's effort table]{}
+\end{table}
+\textit{* Group work}
 \chapter{References}
-
+\begin{itemize}
+\item Specification Document: “Assignment RDD AY 2022-2023\_v3.pdf”
+\item Alloy Reference Document Examples: “http://tmancini.di.uniroma1.it/teaching/courses/2007-2008/mfis/materiale/progetti/Pagliaro%20-%20Alloy.relazione.pdf"
+\item IEEE Std 830-1993 - IEEE Guide to Software Requirements Specifications.
+\item IEEE Std 830-1998 - IEEE Recommended Practice for Software Requirements Specifications.
+\end{itemize}
 \end{document}
