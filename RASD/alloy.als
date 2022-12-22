@@ -176,6 +176,11 @@ fact rechargeStatusCoherence {
 	all r1, r2: Recharge | (gte[r2.startTime, r1.endTime] && r1.currentStatus != Paid) implies r2.currentStatus = Booked
 }
 
+// Ensure that each user is registered to a eMSP that is related to the charging station he wants to exploit
+fact eMSPCoherence {
+	all u:EndUser | all r:Recharge | all e:EMSP | (e in u.eMSPs) && (r in u.book) implies (r.chargingSocket.chargingColumn.chargingStationC.eMSP = e)
+}
+
 fact stringPool {
 	none != "a" + "b" + "c" + "d" + "e"
 }
@@ -212,7 +217,7 @@ pred world1 {
 	#Recharge > 1
 	#ChargingSocket > 1
 	#ChargingColumn > 1
-	#eMSP < 2
+	#EMSP < 2
 }
 
 pred world2 {

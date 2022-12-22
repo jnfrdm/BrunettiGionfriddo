@@ -59,9 +59,9 @@
 \centering{\large{
 Academic Year 2022/2023 \\
 \vspace{10mm}
-Milano, 21/12/2022 \\
+Milano, 22/12/2022 \\
 \vspace{2mm}
-Version 1.0 
+Version 1.1
 }}
 
 \end{titlepage}
@@ -183,7 +183,7 @@ Yesterday a new charging station has been opened in the parking of the city shop
 A CPO company made a deal with a DSO company and if they will purchase energy only from them for one month they will reduce the price making it the most convenient for the CPO. So all CPOWs of the interested CPO have been instructed to proceed in this way. We took as an example one of them. This specific CPOW decides to have a look at the different offers from all available DSO and he notices that actually the one of the deal isn't the cheaper, so the system won't dynamically decide to acquire energy from that specific company. So, through the web interface of the CMPS, he switches off the auto-deciding acquisition for all the charging stations under his control and set the specific DSO as the only supplier. He also sets all charging stations to use only energy from the batteries until they are empty trying to save some money using before all the already purchased energy that is available. 
 
 \subsection{Class diagram}
-The UML class diagram which describes the domain application is presented in figure \ref{fig:class-diagramRASD}. The User class is abstract and both EndUser and CPOW classes inherit from it since are the two different types of users of the whole system. Each EndUser is registered to at least one eMSP, owns vehicles and can book recharges which refer to them. Each recharge has a status and happens in a charging socket of a charging station related to one of the eMSP that the user is registered to. Charging stations are composed of charging columns which are in turn composed of charging sockets and optionally also of batteries. There can be discounts associated to them. Each charging station refers to a specific eMSP. Each CPO administrates one and only one CPMS that manages one or more charging stations and can use DSOs to purchase energy forniture. There is a provisional class that is EnergyForniture, because at this stage of the project the best way to keep track of energy furniture is to separate them and locate different bills in different objects. This is meant in order to have a detailed report of the precise amount of energy purchased, its price and its destination since each energy forniture can refer to one/more batteries or directly to one/more charging sockets.
+The UML class diagram which describes the domain application is presented in figure \ref{fig:class-diagramRASD}. The User class is abstract and both EndUser and CPOW classes inherit from it since are the two different types of users of the whole system. Each EndUser is registered to at least one eMSP, owns vehicles and can book recharges which refer to them. Each recharge has a status and happens in a charging socket of a charging station related to one of the eMSPs that the user is registered to. Charging stations are composed of charging columns which are in turn composed of charging sockets and optionally also of batteries. There can be discounts associated to them. Each charging station refers to one or more eMSPs. Each CPO administrates one and only one CPMS that manages one or more charging stations and can use DSOs to purchase energy forniture. There is a provisional class that is EnergyForniture, because at this stage of the project the best way to keep track of energy furniture is to separate them and locate different bills in different objects. This is meant in order to have a detailed report of the precise amount of energy purchased, its price and its destination since each energy forniture can refer to one/more batteries or directly to one/more charging sockets.
 
 \subsection{State charts}
 \subsubsection{Charging process}
@@ -194,7 +194,7 @@ In the state chart displayed in figure \ref{fig:state-diagramChargingRASD} is de
 
 \newgeometry{top=0.1cm}
 \begin{figure}[p]
-\includegraphics[width=\textwidth]{classDiagramRASDUpdated.png}
+\includegraphics[width=\textwidth]{classDiagramRASDFinal.png}
 \caption{UML Class Diagram}
 \label{fig:class-diagramRASD}
 \end{figure}
