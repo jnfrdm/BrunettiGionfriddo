@@ -9,7 +9,8 @@ abstract sig User {
 sig EndUser extends User {
 	paymentMethod: set PaymentMethod,
 	vehicle: set Vehicle,
-	book: set Recharge
+	book: set Recharge,
+	eMSPs : some EMSP
 }
 
 sig PaymentMethod { }
@@ -55,7 +56,7 @@ sig Battery {
 
 sig ChargingStation {
 	discount: one Discount,
-	eMSP: one EMSP
+	eMSP: some EMSP
 } {
 	some this.~chargingStationC
 }
@@ -167,12 +168,12 @@ fact dSOCoherence {
 fact avoidOverlapping {
 	all r1, r2: Recharge | one s: ChargingSocket | 
 (r1.chargingSocket = s && r2.chargingSocket = s) implies 
-(((gt[r1.startTime, r2.startTime] && gt[r1.startTime, r2.endTime]) or (gt[r2.startTime, r1.endTime] && gt[r2.endTime, r1.endTime])) && (r2.startTime !=  r1.startTime && r2.endTime != r1.endTime))
+gt[r2.startTime, r1.endTime] or gt[r1.startTime, r2.endTime]
 }
 
 // Ensure recharge state order coherence between different recharges
 fact rechargeStatusCoherence {
-	all r1, r2: Recharge | (gt[r2.startTime, r1.endTime] && r1.currentStatus != Paid) implies r2.currentStatus = Booked
+	all r1, r2: Recharge | (gte[r2.startTime, r1.endTime] && r1.currentStatus != Paid) implies r2.currentStatus = Booked
 }
 
 fact stringPool {
@@ -202,7 +203,7 @@ pred provideEnergyFurnitureToBattery [c, c': CPMS, d: DSO, e: EnergyFurniture, b
 	e.battery = b
 }
 
-run provideEnergyFurnitureToBattery
+//run provideEnergyFurnitureToBattery
 
 pred world1 {
 	#EndUser = 2
@@ -226,6 +227,6 @@ pred world2 {
 	some e: EnergyFurniture | e.battery != none
 }
 
-//run world1 for 5
+run world1 for 5
 
 //run world2 for 5
