@@ -201,6 +201,96 @@ In the \textit{Mobile Application} case the client contains all the \textit{pres
 
 \section{Runtime view}
 
+Figures \ref{fig:seq-registration}, \ref{fig:seq-login}, \ref{fig:seq-loadMap}, \ref{fig:seq-booking}, \ref{fig:seq-charge}, \ref{fig:seq-selectDSO}, \ref{fig:seq-energyManagement}, \ref{fig:seq-csStatus} are UML sequence diagrams exploited to show how the different components of the system interact each other during the execution of the most important functions provided. In order to show more cleaner and comprehensible diagrams, we assume that in all figures after \ref{fig:seq-login} users are already correctly logged in.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-registration} the registration process of an End-User to the eMall system through the \textbf{Mobile Application} is shown. First of all the potential user must compile the registration form and, as a first check, the \textbf{Mobile Application} checks directly if provided data are in the correct format. Subsequently, a \textit{register} request is sent to the \textbf{eMSP} the user has decided to register to, which will send it to the \textbf{Router}, which will route it to the \textbf{Access Manager}. This component communicates with \textbf{Motorization API} in order to check if the driving license provided by the potential user exists and it's active. If all data are correct the \textbf{Access Manager} sends all of them to \textbf{DBMS} in order to store information about the new End-User and, in the end, a success message is shown on the \textbf{Mobile Application}. Also the registration process of a new CPOW works in the same way, exception for the fact that the CPMS identification has to be checked instead of the driving license. So, since the representation of that by a sequence diagram is very similar to this one and trivial, is not reported.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-login} the End-User login process and the interactions between all components involved are shown in detail. First of all, an End-User must fill the respective form with username and password on \textbf{Mobile Application}. Inserted information reaches \textbf{Router} End-User's respective \textbf{eMSP}. Then the router will route them to \textbf{Access Manager}, which will ask the \textbf{DBMS} to provide the stored password related to that specific user. Subsequently, the \textbf{Access Manager} checks if the password provided by \textbf{Mobile Application} is equal to the one provided by the \textbf{DBMS}. If it's not the case a login error is sent back to the \textbf{Mobile Application}, which allows the user to retry again inserting the correct data. On the other hand, if the data were correct, the user is successfully logged in, a new token associated with the specific logged user is generated and stored in the \textbf{DBMS} and, in the end, the End-User is notified of login success. Also in that case, the sequence diagram of CPOW login is not provided since it works exactly in the same way.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-loadMap} the functionality which allows the \textbf{Mobile Application} to show a map of all available charging stations is shown. Note: this function can take place independently from the fact that the End User is logged in or not since all available charging stations are shown also to not registered users. In detail GPS coordinates of End-User are routed from the \textbf{Router} to the \textbf{Map Manager} that will get an updated world map from \textbf{MAPS API}. Then, the \textbf{Map Manager} gets from the \textbf{DBMS} all information about charging stations in a certain range of distance from provided coordinates and mounts charging stations on the map, exploiting their coordinates. After, the updated map will be returned to \textbf{Mobile Application} that will load it and show it to End-User.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-booking} the whole charge booking process is presented together with relations between all involved components. First of all, a logged-in End-User must select a charging station, a socket type, and a date from the \textbf{Mobile Application}. After that, the router will receive a get availability request from the involved \textbf{eMSP} and will route it to \textbf{Booking Manager}, that will get from \textbf{DBMS} all availability for that specific day. If there is at least one are all sent to \textbf{Mobile Application}, otherwise, an error is sent back. At this point, the End-User must select, through the \textbf{Mobile Application}, a time slot from the available ones, a vehicle, and also a payment method from the ones connected to his account. A booking request will after follow the same path as before in order to reach the \textbf{Booking Manager}, which will exploit the \textbf{Payment API} in order to check if the selected payment method has enough funds for the payment and provisionally block them. If that operation has success the new booking is stored in the \textbf{DBMS} and a success message is sent back to the \textbf{Mobile Application}, otherwise, a booking error is returned.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-charge} is presented how all components react and interact with each other during a whole charging process that is assumed to have been already booked. First of all, a correctly logged-in End-User, which is assumed to be near the right charging column, must click on the start charging button of the \textbf{Mobile Application}, which will send the request with the associated \textit{id} to the \textbf{Router}, trough the \textbf{eMSP}. Then, the request is routed to the \textbf{Booking Manager} that will ask all dates about the specific charge to the \textbf{DBMS} and then will check them. If the charge exists and it's the right time, the \textbf{Booking Manager} sends, through the \textbf{Router}, an \textit{abilitateCharge} message to the \textbf{Charging Station Manager} for that specific charge at that specific time in that specific socket of that specific charging station. After that, the \textbf{Booking Manager} sends also a \textit{charge\_can\_start} message to the mobile application. At this point, the user approaches his mobile phone to the RFID reader of the charging socket and the \textbf{Charging Station API} sends a get enabling message to the \textbf{Charging Station Manager} for the specific charge \textit{id} obtained through RFID. If the \textit{id} is correct the charge starts and the \textbf{Charging Station API} sends periodically to the \textbf{Charging Station Manager} the current status of recharge, which will be reported, firstly to the \textbf{DBMS} and secondly, through the \textbf{Router}, as a \textit{current\_status} messages to the \textbf{Mobile Application} that displays charging status to the End-User. When the charge is completed, the \textbf{Charging Station API} communicates it to the \textbf{Charging Station Manager} that will save it to the \textbf{DBMS} and then ask, always through the \textbf{Router}, to the \textbf{Notification Manager} to send a notification of completed charge directly to the \textbf{Mobile Application}, that will show it to the user that will consequently remove the plug. To keep this heavy diagram a little cleaner has not been represented the fact that when the charge is complete, funds are charged to the End-User payment method from \textbf{Payment API}, and also this information is stored in the \textbf{DBMS}.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-selectDSO} is presented the process of DSO selection from the CPOW point of view by showing how different involved components communicate with each other. First of all, an already logged-in CPOW must ask from the \textbf{Web Application} for all available DSOs for a specific charging station (this depends on the charging station location, i.e. different geographical areas may have different DSOs). Then a get DSOs request will follow the following path: \textbf{Web Application}-\textbf{Router}-\textbf{DSO Manager}. This last component will after get from \textbf{DSO API} the updated list of all available DSOs, check which ones are available for the specific charging station (after getting charging station data from \textbf{DBMS}), and then finally return back a list that is shown by the \textbf{Web Application}. At this point, the CPOW, through his web interface, selects one DSO and a change DSO request travels until reaches \textbf{Charging Station Manager}, that checks if the selected DSO is already active for that specific charging station. If it's not the case, a change DSO request is sent firstly to the \textbf{DSO Manager} that will communicate to \textbf{DSO API} the change and secondly another request is sent to \textbf{CPMS API}, in order to apply the effective changing to the charging station. At the end, the new DSO status for the charging station is stored from the \textbf{Charging Station Manager} to the \textbf{DBMS} and a success message is sent back to the \textbf{Web Application}. On the other hand, if the DSO is already selected for that specific charging station the system returns a message, and nothing changes.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-energyManagement} is shown the process through which a CPOW can perform operations of charging station management exploiting the \textbf{Web Application}. In this particular example, we describe how that works in the case of enabling battery usage, but we can assume that the process is quite the same for all other similar operations, e.g. disabling batteries. First of all, an use batteries request for a specific charging station is routed by the \textbf{Router} from the \textbf{Web Application} to the \textbf{Charging Station Manager}. Then, this last component gets the current energy usage status of the selected charging station from the \textbf{DBMS} and checks if batteries are already enabled for that charging station. If it is the case an \textit{already\_using\_batteries} message is sent back to the \textbf{Web Application} and nothing changes. If it is not, the \textbf{Charging Station Manager} communicates to the \textbf{CPMS API} to enable batteries and update the charging station status on the \textbf{DBMS}. In the end, a success message is sent back to the \textbf{Web Application}.
+\\\\
+In the sequence diagram of figure \ref{fig:seq-csStatus} the focus is on how the \textbf{Web Application} gets all data about charging stations and is able to show them to a CPOW. When a CPOW opens his web interface connecting to the \textbf{Web Application} a request to obtain a list of all charging stations of his CPO passes through the \textbf{Router} and reaches the \textbf{Charging Station Manager}, which will get the list from the \textbf{DBMS} and return it back to the \textbf{Web Application} following the same path. At this point, when the CPOW selects a specific charging station on which to see all details and information, another get info request will follow again the path, but this time it's specific to a charging station. When this request reaches the \textbf{DBMS} it starts to send back, again on the path, all data to the  \textbf{Web Application} every 5 seconds, to ensure that data are always updated (e.g. if another CPOW or the system dynamically has disabled batteries). This loop ends when the CPOW exit the page of that specific charging station on the web interface of the \textbf{Web Application} and then the \textbf{DBMS} is informed to stop sending data.
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceRegistration.png}
+\caption{UML Sequence Diagram for the End-User Mobile App registration}
+\label{fig:seq-registration}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceLogin.png}
+\caption{UML Sequence Diagram for the End-User Mobile App login}
+\label{fig:seq-login}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceLoadMap.png}
+\caption{UML Sequence Diagram for Mobile App map load}
+\label{fig:seq-loadMap}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceChargeBooking.png}
+\caption{UML Sequence Diagram for End-User charge booking}
+\label{fig:seq-booking}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceChargingProcess.png}
+\caption{UML Sequence Diagram for End-User charging process}
+\label{fig:seq-charge}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceSelectDSO.png}
+\caption{UML Sequence Diagram for CPOW selecting a DSO for a charging station}
+\label{fig:seq-selectDSO}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceCsEnergyManagement.png}
+\caption{UML Sequence Diagram for CPOW selecting batteries usage for a charging station}
+\label{fig:seq-energyManagement}
+\end{figure}
+\end{landscape}
+
+\begin{landscape}
+\begin{figure}[hp]
+\centering
+\includegraphics[scale=0.6]{img/sequenceShowCsStatus.png}
+\caption{UML Sequence Diagram for Web Application showing to a CPOW date about a charging station}
+\label{fig:seq-csStatus}
+\end{figure}
+\end{landscape}
+
 \chapter{User interface design}
 In this chapter are presented mobile application and web application mockups.
 
@@ -284,42 +374,43 @@ Table \ref{tab:req-trace} has been added to highlight for each component what re
     Map Manager & R1, R2, R9 \\ \hline
     DSOs Manager &  R19\\ \hline
     Charging Station Manager & R4, R15, R17, R19, R21, R24, R26, R27 \\ \hline
-    DataWarehouse & R1, R2, R4, R6, R7, R8, R15, R26, R27 \\ \hline
+    DBMS & R1, R2, R4, R6, R7, R8, R15, R26, R27 \\ \hline
     
   \end{tabular}
 \caption{Table for mapping requirements to components} \label{tab:req-trace}
 \end{table}
 In the following lines is explained how the requirements are provided by the components:
 \begin{itemize}
-    \item{[R1]} \label{R1} The system must allow unregistered/registered users to see a map of available charging stations and their prices and offers.
-    \item{[R2]} \label{R2} The system must allow unregistered/registered users to see a list of charging stations and filter on it (e.g. offers, prices and positions).
-    \item{[R3]} \label{R3} The system must allow unregistered users to register as end user or CPOW (if they have a badge id).
-    \item{[R4]} \label{R4} The system must verify if the all data inserted by users are correct (e.g. personal data, vehicle and payment method information, charging station ID).   
-    \item{[R5]} \label{R5} The system must allow registered end users or CPOW to log in through their username and password.
-    \item{[R6]} \label{R6} The system must allow registered end users to associate vehicles to their account and keep track of them.
-    \item{[R7]} \label{R7} The system must allow registered end users to associate payment methods to their account.
-    \item{[R8]} \label{R8} The system must allow registered end users to view the available time-slots for a certain type of socket of a certain charging station in a specific day.
-    \item{[R9]} \label{R9} The system must allow registered end users to book a charge in a specific charging station.
-    \item{[R10]} \label{R10} The system must allow end users to unlock a charging socket if they have booked it and it's the correct time-slot.
-    \item{[R11]} \label{R11} The system must let a charge start if a vehicle is correctly connected and the charging socket is unlocked.
-    \item{[R12]} \label{R12} The system must show to end users the charging status (e.g. remaining time to complete charge).
-    \item{[R13]} \label{R13} The system must notify the end-user when the charge is complete.
-    \item{[R14]} \label{R14} When a charging process is correctly finished the system must charge on the end user selected payment system the correct import.
-    \item{[R15]} \label{R15} The system must allow CPOW to register a new charging station through its physical id.
+    \item{[R1]} \label{R1} The system must allow unregistered/registered users to see a map of available charging stations and their prices and offers. This requirement is provided by the Mobile Application component , the DBMS component and the Map Manager Component. The Mobile Application allows the End-User to access the charging stations map/list that is provided by the Map Manager through the DBMS and the Map APIs.
+    \item{[R2]} \label{R2} The system must allow unregistered/registered users to see a list of charging stations and filter on it (e.g. offers, prices and positions). This requirement is provided as the same way as requirement R2.
+    \item{[R3]} \label{R3} The system must allow unregistered users to register as end user or CPOW (if they have a badge id). The Mobile application allows the End-User to fill the registration while the Access Manager checks if the data is correct and allows to store the account information into the database communicating with the DBMS.
+    \item{[R4]} \label{R4} The system must verify if the all data inserted by users are correct (e.g. personal data, vehicle and payment method information, charging station ID). This requirement is provided by the Access Manager component.
+    \item{[R5]} \label{R5} The system must allow registered end users or CPOW to log in through their username and password. This requirement is provided by the Mobile Application component, the Web Application component and the Access Manager Component. The End-User/CPOW can fill the username and password through the Mobile Application/Web Application, while the Access Manager component checks if all data is correct and allows store it into the database by the DBMS.
+    \item{[R6]} \label{R6} The system must allow registered end users to associate vehicles to their account and keep track of them. The Mobile Application component allows the End-User to insert all vehicle information that are stored by the DBMS component.
+    \item{[R7]} \label{R7} The system must allow registered end users to associate payment methods to their account. This requirement is met in the same way as requirement R6.
+    \item{[R8]} \label{R8} The system must allow registered end users to view the available time-slots for a certain type of socket of a certain charging station in a specific day. The Mobile Application component allows the end user to view the above information provided by the DBMS.
+    \item{[R9]} \label{R9} The system must allow registered end users to book a charge in a specific charging station. The Mobile Application allows the user to visualize the charging stations map provided by the Map Manager and fill and confirm a charge booking through the Bookings Manager.
+    \item{[R10]} \label{R10} The system must allow end users to unlock a charging socket if they have booked it and it's the correct time-slot. The Mobile Application component allows the user to visualize a personal booking page where it's possible to unlock the associated charging socket by the Bookings Manager that communicates with the related CPMS.
+    \item{[R11]} \label{R11} The system must let a charge start if a vehicle is correctly connected and the charging socket is unlocked. This requirement is provided by the Bookings Manager component that directly communicates with the related CPMS.
+    \item{[R12]} \label{R12} The system must show to end users the charging status (e.g. remaining time to complete charge). This requirement is met by the Mobile Application component and the Notification Manager component. The Mobile Application component provides the End-User with the information sent by the Notification Manager, which is directly connected to the related CPMS.
+    \item{[R13]} \label{R13} The system must notify the end-user when the charge is complete. This requirement is provided in the same way as requirement 12
+    \item{[R14]} \label{R14} When a charging process is correctly finished the system must charge on the end user selected payment system the correct import. This requirement is provided by the Bookings Manager component that is directly connected with the right Payment API.
+    \item{[R15]} \label{R15} The system must allow CPOW to register a new charging station through its physical id. The Web application allows a CPOW to insert all information related to the registration which are checked and than saved by the Charging Station Manager that communicates with the DBMS.
     \item{[R16]} \label{R16} The system must be able to dynamically select if using batteries, directly the network or a mix of the two for each charging station.*
-    \item{[R17]} \label{R17} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them. 
+    \item{[R17]} \label{R17} The system must allow CPOWs to manually select if using batteries, directly the network or a mix of the two for each charging station associated to them. **
     \item{[R18]} \label{R18} The system must be able to dynamically select which DSO use to provide energy to a specific charging station.*
-    \item{[R19]} \label{R19} The system must allow CPOWs to manually select which DSO use to provide energy to a specific charging station associated to them.
+    \item{[R19]} \label{R19} The system must allow CPOWs to manually select which DSO use to provide energy to a specific charging station associated to them. This requirement is provided by the Web Application component and the DSO Manager component. The Web Application component allows the CPOW to select as input a DSO furniture and then the DSO Manager will communicate with the right DSO in order to execute the decision. 
     \item{[R20]} \label{R20} The system must be able to dynamically decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations.*
-    \item{[R21]} \label{R21} The system must allow CPOWs to manually decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations associated to them.
+    \item{[R21]} \label{R21} The system must allow CPOWs to manually decides if a certain energy furniture is destinated to a battery or directly to sockets of charging stations associated to them. **
     \item{[R22]} \label{R22} The system must keep track of the current status of each charging process (e.g. booked, startedCharging, etc.).*
     \item{[R23]} \label{R23} The system must keep track of the structure of each charging station (e.g. number of columns, number and type of sockets).*
-    \item{[R24]} \label{R24} The system must allow CPOWs to view the structure of each charging station associated to them.
+    \item{[R24]} \label{R24} The system must allow CPOWs to view the structure of each charging station associated to them. **
     \item{[R25]} \label{R25} The system must keep track for each charging station of all bookings related to it.*
-    \item{[R26]} \label{R26} The system must allow CPOWs to view all the bookings of a certain charging station associated to them and their status.
-    \item{[R27]} \label{R27} The system must allow CPOWs to set prices and special offers for a certain charging station associated to him.
+    \item{[R26]} \label{R26} The system must allow CPOWs to view all the bookings of a certain charging station associated to them and their status. **
+    \item{[R27]} \label{R27} The system must allow CPOWs to set prices and special offers for a certain charging station associated to him. **
 \end{itemize}
-*R16, R18, R20, R22, R23, R25 requirements refers to the functions done automatically by the CPMS.
+* R16, R18, R20, R22, R23, R25 requirements refers to the functions done automatically by the CPMS.\newline
+** These requirement are provided by the Web Application component and the Charging Station Component. The Web Application component allows the CPOW to input the different decisions, while the Charging Station component executes them by communicating directly with the relevant CPMS. In the case of requirements 26 and 27, the DBMS is used to store the input information.
 
 
 
