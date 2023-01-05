@@ -75,17 +75,16 @@ Version 1.0
 \chapter{Introduction}
 \section{Purpose}
 
-The purpose of this document is to detail the design of the software and of the architecture regarding the system of
-eMall. The analysis has been made in a more detailed approach for the description of each component
-and the overall architecture of the system, by also covering the relationships between each of them. Furthermore has been inserted mockups of User and Web interfaces and a plan for the implementation,
-testing and integration of the system..
+The purpose of this document is to detail the design of the software and of the architecture regarding the eMall system. The analysis has been made in a more detailed approach for the description of each component
+and the overall architecture of the system, by also covering the relationships between each one of them. Furthermore has been inserted mockups of Mobile Application for End-Users and Web interface for CPOWs and a plan for the implementation,
+testing and integration of the system.
 
 \section{Scope}
 \textit{eMall} is an application system designed for help End-Users to take advantage of the services for charging electric vehicles and helps Charging Point Operators manage associated charging
 stations.\\
 The End-Users can use the mobile app to browse a map that displays the charging stations nearby, their cost and any special offer they have and book and use an electric vehicle charge.\\
 The CPO Workers can use the web application to manage their associated charging stations and interact with DSO in order to acquire energy furniture. The system is supported by APIs provided by a map service and suited for interaction between the various providers (eMSPs, CPOs, and DSOs) as explained in the RASD and in the following sections of this document.
-\section{Definitions,Acronyms,Abbreviations}
+\section{Definitions, Acronyms, Abbreviations}
 \begin{itemize}
 \item \textit{API}: Application Programming Interface.
 \item \textit{DBMS}: Database Management System.
@@ -104,19 +103,34 @@ The CPO Workers can use the web application to manage their associated charging 
 \item Assignment Document "Assignment RDD AY 2022-2023\_v3.pdf"
 \item RASD Document "RASD1.pdf"
 \end{itemize}
-\section{Document Structure(TO DO)}
+\section{Document Structure}
 
-\chapter{Architectural Design(TO BE BETTER EDITED FROM THE ORIGINAL DOCUMENT)}
+The document consists of 7 different chapters:
+\\ 
+\\
+\textbf{Chapter 1}: in this first chapter the purpose and the scope of this Design Document for eMall system are briefly presented. Furthermore, some basic information about acronyms and abbrevations is provided in order to help in the understanding of the whole document.\\ \\
+\textbf{Chapter 2}: the second chapter purpose is to describe and motivate design choices. In particular, it starts with an overview of the chosen architecture from a more general and abstract perspective first to a more specific one consisting in the description of components then. After, interdependencies and interactions between different components are shown through different diagrams. In the end, also architectural styles, patterns and other minors design decisions are briefly reported. \\ \\
+\textbf{Chapter 3}: here the two different types of user interfaces are presented. In particular, different mockups show how interfaces should be once implemented.\\ \\
+\textbf{Chapter 4}: the fourth chapter contains all informations about requirement traceability. More specifically, it's described which requirements are satisfied by which components in a sort of mapping.\\ \\
+\textbf{Chapter 5}: in this chapter, the testing implementation and integration for the system are described.\\ \\
+\textbf{Chapter 6}: in this chapter, the effort spent by each team member is briefly presented in order to provide an overview of how the work has been done.\\ \\
+\textbf{Chapter 7}: the last chapter contains the references used during the developing process of the document.
+
+\chapter{Architectural Design}
 \section{Overview:}
-The application will be developed using the client-server paradigm on a three-tiered architecture. The three layers of the application (Presentation, Application and Data) are divided into clusters of machines (i.e. tiers) that actually cooperate to provide a specific functionality. In this case we have three tiers  and each tier is responsible for one of the three layers. The client tier is responsible for the \textbf{Presentation} layer; therefore, in this architecture, are included eMPS and CPMS applications. The UIs provided are just meant to show results and to allow clients to choose what they want. In particular there are two types of clients: a \textbf{mobile app} for the End-Users which use it to book and take advantage of electric vehicle charges, directly connected to the associated eMSP and a  \textbf{web app} for CPOWs for managing associated charging stations, directly connected to the related CPMS. \\
-The Application tier takes care of the application layer encapsulating all is needed concerning the application logic. It receives the requests from the clients and handles them. It's also responsible for sending asynchronous notifications to a CPMS (which can be forwarded to an End-User trough eMSP APIs) in the presentation layer when certain conditions are met.\\
-The \textbf{Application} tier communicates with the \textbf{Data} tier, responsible for the Data Access layer, that is the layer responsible for accessing the DataBases and performing queries on them.
+The architectural style chosen for the eMall system is a three-tiered architecture which exploits the client-server paradigm. Furthermore, the system can be divided into three different subsystems: the presentation layer, the application layer and the data layer. Each tier is responsible for one of the three layers. The first layer, the \textbf{Presentation} layer is made by the couple Mobile application-eMSP (that will be used by an End-User for doing actions such that view all prices and offers of nearby charging stations and/or booking and use an electric charge) and the Web application (that is destinated for a CPOW that needs to manage their associated charging stations and communicate with DSO in order to make energy furniture agreements) and provides the GUI of the system. The second layer, the \textbf{Logic} layer, implements all the logic of the application receiving and executing the requests done by the End-User or by the CPOW. The third layer, the \textbf{Data} layer stores and maintains all the data that the system needs in order to provide correctly the services offered by the system, such that all the users accounts, all bookings and all information about the charging stations registered.\\
+The aim of the system architecture is to allow multiple eMSPs interact with multiple CPMS. Every eMSP is connected from one side to his associated Mobile Application in order to provide the Presentation layer, and from the other side communicates with the Logic layer. In this way, every End-User side GUI will have the same fundamental structure (that is optimized in order to communicate with the Logic layer of eMall), but will contain different design decisions that are different from one eMSP to another.
+On the other hand the interaction with the CPMS is made by a proper CPMS API that is directly connected with the system. As can be seen clearly in the next section, the Logic layer of eMall can interact with a CPMS API in different ways, with the purpose to take into account every request that can be done by a CPOW.
+
+
+
+
 \section{Component view}
-In the figure \ref{fig:general-component-diagram} the \textit{Component Diagram} for the \textit{eMall} system is reported. This is a high level view in which only the main components are immediately shown, while some components will be better detailed afterwards.
+The figure \ref{fig:general-component-diagram} is a \textit{Component Diagram} for the \textit{eMall} system that displays in an high level how every component are connected each other.
 
 \begin{figure}[hp]
 \centering
-\includegraphics[scale=0.5 ]{img/GENERAL DIAGRAM_v2.png}
+\includegraphics[scale=0.4 ]{img/GENERAL DIAGRAM_v3.png}
 \caption{UML Component Diagram}
 \label{fig:general-component-diagram}
 \end{figure}
@@ -132,7 +146,7 @@ In the figure \ref{fig:general-component-diagram} the \textit{Component Diagram}
 In this diagram when two components can communicate using different interfaces a single interface link is 
 reported, for the sake of readability. The various components are now described and detailed:
 \begin{itemize}
-\item \textbf{Router}: it has the role of dispatching the requests coming from the users applications. Before doing this it has also the important role of verifying the user authentication. In figure \ref{fig:router-component} a more detailed view is provided, putting in evidence the various interfaces for the eMSP and CPMS side.
+\item \textbf{Router}: It dispatches the requests coming from the users applications.  Figure \ref{fig:router-component} represent how is composed in detail.
 
 \item \textbf{BookingsManager}: this component is in charge of all concern the management of the bookings associated to the End-Users. It permits to make a new booking or retrie all personal bookings from the database trough the \textit{DBMS} component and proceed from one of them with the charging process (trough an interface directly connected to an CPMS). This component is described in figure \ref{fig:bookingsmgr-component} .
 
@@ -186,13 +200,17 @@ reported, for the sake of readability. The various components are now described 
 So far, only an abstract and general view of the system has been provided. In this section a better detailed view of the system shows how the component previously described are actually deployed in different machines and how each tier is organized.
 In figure \ref{fig:deployment-diagram} there is an UML Deployment Diagram which shows the allocation of the software components in the physical tiers of the system. 
 
-\begin{figure}[htp]
-\centering
-\includegraphics[scale=0.6]{img/DEPLOYMENT DIAGRAM.png}
-\caption{UML Deployment Diagram}
-\label{fig:deployment-diagram}
-\end{figure}
+\begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[scale=0.5]{img/DEPLOYMENT DIAGRAM.png}
+        \captionof{figure}{UML Deployment Diagram}
+        \label{fig:deployment-diagram}
+\end{minipage}
+    
 
+
+$ $\newline
+$ $\newline
 W.r.t to the component diagram (figure \ref{fig:general-component-diagram}), the different colors indicate the allocation of components.
 For the presentation tier clearly the \textit{smartphones} contain the \textit{MobileApplication} while the \textit{personal computers} and the \textit{web server} contain the \textit{Web Application}.\\
 All application logic components (orange in the \textit{Component Diagram}) are deployed on the \textit{Application Server}, while the \textit{DBMS} component is deployed on the \textit{DataBase server} and the \textit{DataWarehouse} component is deployed on the \textit{DataWarehouse server}.
@@ -203,7 +221,7 @@ In the \textit{Mobile Application} case the client contains all the \textit{pres
 
 Figures \ref{fig:seq-registration}, \ref{fig:seq-login}, \ref{fig:seq-loadMap}, \ref{fig:seq-booking}, \ref{fig:seq-charge}, \ref{fig:seq-selectDSO}, \ref{fig:seq-energyManagement}, \ref{fig:seq-csStatus} are UML sequence diagrams exploited to show how the different components of the system interact each other during the execution of the most important functions provided. In order to show more cleaner and comprehensible diagrams, we assume that in all figures after \ref{fig:seq-login} users are already correctly logged in.
 \\\\
-In the sequence diagram of figure \ref{fig:seq-registration} the registration process of an End-User to the eMall system through the \textbf{Mobile Application} is shown. First of all the potential user must compile the registration form and, as a first check, the \textbf{Mobile Application} checks directly if provided data are in the correct format. Subsequently, a \textit{register} request is sent to the \textbf{eMSP} the user has decided to register to, which will send it to the \textbf{Router}, which will route it to the \textbf{Access Manager}. This component communicates with \textbf{Motorization API} in order to check if the driving license provided by the potential user exists and it's active. If all data are correct the \textbf{Access Manager} sends all of them to \textbf{DBMS} in order to store information about the new End-User and, in the end, a success message is shown on the \textbf{Mobile Application}. Also the registration process of a new CPOW works in the same way, exception for the fact that the CPMS identification has to be checked instead of the driving license. So, since the representation of that by a sequence diagram is very similar to this one and trivial, is not reported.
+In the sequence diagram of figure \ref{fig:seq-registration} the registration process of an End-User to the eMall system through the \textbf{Mobile Application} is shown. First of all the potential user must compile the registration form and, as a first check, the \textbf{Mobile Application} checks directly if provided data are in the correct format. Subsequently, an \textit{endUserRegistration} request is sent to the \textbf{eMSP} the user has decided to register to, which will send it to the \textbf{Router}, which will route it to the \textbf{Access Manager}. This component communicates with \textbf{Motorization API} in order to check if the driving license provided by the potential user exists and it's active. If all data are correct the \textbf{Access Manager} sends all of them to \textbf{DBMS} in order to store information about the new End-User and, in the end, a success message is shown on the \textbf{Mobile Application}. Also the registration process of a new CPOW works in the same way, exception for the fact that the CPMS identification has to be checked instead of the driving license. So, since the representation of that by a sequence diagram is very similar to this one and trivial, is not reported.
 \\\\
 In the sequence diagram of figure \ref{fig:seq-login} the End-User login process and the interactions between all components involved are shown in detail. First of all, an End-User must fill the respective form with username and password on \textbf{Mobile Application}. Inserted information reaches \textbf{Router} End-User's respective \textbf{eMSP}. Then the router will route them to \textbf{Access Manager}, which will ask the \textbf{DBMS} to provide the stored password related to that specific user. Subsequently, the \textbf{Access Manager} checks if the password provided by \textbf{Mobile Application} is equal to the one provided by the \textbf{DBMS}. If it's not the case a login error is sent back to the \textbf{Mobile Application}, which allows the user to retry again inserting the correct data. On the other hand, if the data were correct, the user is successfully logged in, a new token associated with the specific logged user is generated and stored in the \textbf{DBMS} and, in the end, the End-User is notified of login success. Also in that case, the sequence diagram of CPOW login is not provided since it works exactly in the same way.
 \\\\
@@ -290,6 +308,65 @@ In the sequence diagram of figure \ref{fig:seq-csStatus} the focus is on how the
 \label{fig:seq-csStatus}
 \end{figure}
 \end{landscape}
+
+\section{Component Interfaces}
+In the diagram of figure \ref{fig:componentInterfaces} all component interfaces are described with respect to what is shown in the component diagram of figure \ref{fig:general-component-diagram}.
+
+\begin{figure}[htp]
+\includegraphics[scale=0.55]{img/componentInterfaces.png}
+\caption{UML Interfaces Diagram}
+\label{fig:componentInterfaces}
+\end{figure}
+
+In figure \ref{fig:classDiagram} is reported the Class Diagram already provided in the RASD document with a modification. During the develop of Design Document, considering all system requirements and functions to be implemented would have been useless to maintain a ChargingColumn class which has been removed with respect to the RASD version of the diagram. Charging columns numbers are now described as attributes of ChargingSocket class since their only usage could be for descriptive purpose. The diagram is still high level and it could be more refined before the effective implementation.
+
+\newgeometry{top=0.1cm}
+\begin{figure}[htp]
+\includegraphics[width=\textwidth]{img/classDiagramDD.png}
+\caption{UML Class Diagram}
+\label{fig:classDiagram}
+\end{figure}
+\restoregeometry
+
+\section{Selected architectural styles and patterns}
+
+\subsection{Model-View-Controller Pattern (MVC)}
+The eMall system is built exploiting the Model-View-Controller pattern in order to achieve some important benefits like:
+\begin{itemize}
+    \item Easier building of large-scale applications.
+    \item Easily Modifiable: allows easy modification of the entire application and helps to increase flexibility and scalability.
+    \item Faster development process: As there is segregation of the code among the three levels, developing web applications using the MVC pattern allows one developer to work on a particular section (say, the view) while another can work on any other section (say, the controller) simultaneously. This allows for easy implementation of business logic as well as helps to accelerate the development process.
+    \item Easy planning and maintenance: MVC pattern is also helpful during the initial planning phase of the application because it gives the developer an outline of how to arrange their ideas into actual code. It is also a great tool to help limit code duplication, and consequently, allow easy maintenance of the application.
+    \item Multiple views: following the MVC pattern, it's also easy to develop more view components for model components limiting code duplication as it separates data and business logic. This was particularly useful for eMSP and Web Application view components.
+\end{itemize}
+In the component diagrams of figure \ref{fig:general-component-diagram} and also in other diagrams like the sequence ones, different colors have been used to underline the different tiers of the pattern and their different functionalities. In particular, yellow components are view components, red components are controller components and blue components are model ones.
+
+\subsection{Tiny client}
+The eMall system is developed on a three-tier architecture, as previously explained. Furthermore, the client is thin, which means that, in this specific case, the client doesn't need to make particular computations or know anything about the system logic but has only a presentation purpose to the final user. This implies hardware resource optimization, reduced software maintenance, and improved security and in particular, is meaningful for both Mobile Application and Web Application.
+
+\subsection{RESTful architecture}
+The eMall system has been developed following also the REST architecture. The main motivations are:
+\begin{itemize}
+    \item RESTful system can be used by any type of client, regardless of programming language or execution environment.
+    \item REST uses a stateless approach, which means that request state information is provided by the client to the server, allowing for greater scalability compared to other architectures that require server-side storage of state information.
+    \item REST is based on the HTTP standard, which makes it easily interoperable with other technologies based on HTTP, such as our Web Interface.
+    \item REST uses a cache-based approach, which can improve system performance as responses can be easily cached and reused in the event of future requests.
+    \item REST uses a simple interface based on URI and HTTP verbs, which makes it easy to understand and use.
+\end{itemize}
+
+\subsection{Database}
+The final database choice for eMall is a relational one since all data have pretty well-defined structures. We have a lot of entities (e.g. user, vehicle, booking, charging station, cpow, etc.) whose instances have been easily stored in relational tables that are accessed by SQL queries.
+
+\section{Other design decisions}
+
+\subsection{Maps API}
+Since for this system is not worthy to develop, maintain and update a dedicated map system the final decision is to rely on an external service represented by the MAPS API Component. In particular, we will exploit google maps APIs, since are well documented, easy to implement and with a lot of features that allow to add markers and signals that represent the different charging stations directly on the map that is in the end sent to the Mobile Application.
+
+\subsection{Motorization API}
+Another necessity of the system is to check if the driving licences provided by users are vaild, in other words if users are enabled to drive the vehicle they want to book a charge for. This is made by the Motorization API component which exploits, for italian driving licences, the APIs, provided after have received an authorization, from the government website of ministry of infrastructure and transport. For driving licences of all other countries is assumed to obtain the same data from respective government websites.
+
+\subsection{Payment API}
+Also for the payment processing and for checking if the amount available on end user debit or credit cart is enough isn't worthy to develop a proprietary system. The final decision is to exploit a third party service, called Stripe, that supports a wide range of payment types, including major credit and debit cards, Apple Pay, Google Pay, and other digital wallets. It provides also an advanced fraud protection and compliance features to help ensure the security of transactions. Furthermore has a good documentation and a customer service that can help in setting up this side of the system.
 
 \chapter{User interface design}
 In this chapter are presented mobile application and web application mockups.
@@ -412,7 +489,66 @@ In the following lines is explained how the requirements are provided by the com
 * R16, R18, R20, R22, R23, R25 requirements refers to the functions done automatically by the CPMS.\newline
 ** These requirement are provided by the Web Application component and the Charging Station Component. The Web Application component allows the CPOW to input the different decisions, while the Charging Station component executes them by communicating directly with the relevant CPMS. In the case of requirements 26 and 27, the DBMS is used to store the input information.
 
+\chapter{Implementation, integration and test plan}
+\section{Implementation and unit testing}
+The implementation and test plan is defined starting from the general component diagram in Figure \ref{fig:general-component-diagram} and considering the level of importance of every component. All modules need to be tested individually using the white testing technique. Note that the external components (DSOAPI, MapsAPI, PaymentAPI , MotorizationAPI and CMPSAPI) are considered
+to be available from the beginning. The system is to be developed according to the following five subparts :
+\begin{enumerate}
+    \item \textbf{Data}\newline
+    This subpart consists of the database and the DBMS that handles it. This subpart is the most important to implement since is the core of the system.
+    \item \textbf{CPO Managers*}\newline
+    This subpart consists of the components that relays on the CPO Worker experience ( DSOs and Charging Station Manager ). Charging Station Manager component will be implemented as first. In order to do the testing operation both components will need a stub of the DBMS.
+    \item \textbf{End-User Managers}*\newline
+    This subpart consists of the components that relays on the End-User experience ( Notification, Access, Bookings and Map Manager ). The Bookings Manager component will be implemented as first. In order to do the testing operation, every component will need a stub of the DBMS, while the Notification Manager component will need also a stub of the Mobile Application component.
+    \item \textbf{Router}\newline
+    When all the previous components implementation is finished the Router component can be implemented. Note that the Router component need a stub of all Manager components in order to do the testing operation
+    \item \textbf{Client side}\newline
+    Finally the presentation layer is implemented. It is important to test the Mobile Application component on various types of mobile devices (smart-phones and tablets), with different versions of Android and iOS. The same holds for the Web Application that will need tests on various browsers (Google Chrome, Mozilla Firefox, Microsoft Edge), versions and operating systems.
+\end{enumerate}
+* Sub parts 2 and 3 constitute the Back-End of the system and can be implemented in parallel since they are independent of each other.
+\section{Integration testing}
+Following the implementation order explained above, has been chosen a \textbf{bottom-up} approach as integration testing strategy. The choice of this testing technique is clearly based on the evident hierarchical structure of the system. Note that as a consequence it will be necessary to construct drivers for each module and when a driver will be replaced by module the integration tests need to be checked again. Has been also decided to integrate elements of a \textbf{critical-module-first} approach in order to give precedence to the fundamental elements of the system in order to conduct a more important testing on them and find system-breaking bugs as early as possible. The figures below helps to practically understand the integration order of the components.\newline
+\begin{enumerate}
+    \item \textbf{DBMS}\par
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[scale=0.3]{img/INTEGRATION_1.png}
+        \captionof{figure}{Integration DBMS}
+    \end{minipage}
 
+    \item \textbf{Back-End}\par
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[scale=0.5]{img/INTEGRATION_2.png}
+        \captionof{figure}{Integration Back-End}
+    \end{minipage}\newline\newline
+    
+    \item \textbf{Router}\par
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[scale=0.5]{img/INTEGRATION_3.png}
+        \captionof{figure}{Integration Router}
+    \end{minipage}
+    
+    \item \textbf{Client}\par
+    \begin{minipage}{\linewidth}
+        \centering
+        \includegraphics[scale=0.5]{img/INTEGRATION_4.png}
+        \captionof{figure}{Integration Client}
+    \end{minipage}
+\end{enumerate}
 
+\chapter{Effort spent}
+
+\chapter{References}
+\begin{itemize}
+\item Specification Document: “Assignment RDD AY 2022-2023\_v3.pdf”
+\item RASD Document: “RASD1.pdf"
+\item Google Maps API: \href{https://developers.google.com/maps}{https://developers.google.com/maps}
+\item Motorization API: \href{https://www.mit.gov.it/documentazione/accesso-al-sistema-informativo-motorizzazione-civile}{https://www.mit.gov.it/documentazione/accesso-al-sistema-informativo-motorizzazione-civile}
+\item Payment API: \href{https://stripe.com/docs/api}{https://stripe.com/docs/api}
+\end{itemize}
 
 \end{document}
+
+
