@@ -56,7 +56,7 @@
 \centering{\large{
 Academic Year 2022/2023 \\
 \vspace{10mm}
-Milano, -/12/2022 \\
+Milano, 07/01/2023 \\
 \vspace{2mm}
 Version 1.0
 }}
@@ -96,7 +96,7 @@ The CPO Workers can use the web application to manage their associated charging 
 \end{itemize}
 \section{Revision history}
 \begin{itemize}
-\item |-12-2022 Version 1.0.
+\item 07-01-2023 Version 1.0.
 \end{itemize}
 \section{Reference Documents}
 \begin{itemize}
@@ -130,7 +130,7 @@ The figure \ref{fig:general-component-diagram} is a \textit{Component Diagram} f
 
 \begin{figure}[hp]
 \centering
-\includegraphics[scale=0.4 ]{img/GENERAL DIAGRAM_v2.png}
+\includegraphics[scale=0.4 ]{img/GENERAL DIAGRAM.png}
 \caption{UML Component Diagram}
 \label{fig:general-component-diagram}
 \end{figure}
@@ -166,21 +166,21 @@ reported, for the sake of readability. The various components are now described 
 \label{fig:accessmgr-component}
 \end{figure}
 
-\item \textbf{Charging Stations Manager}: it permits to view all charging stations associated to a certain CPMS and do all management operations for each one of them. It requires to communicate, by some interfaces, with the \textit{DBMS} component and the associated CPMS. If set properly, the sub-component \textit{Charging Station Viewer} can also interact automatically with the \textit{CPMS API}. It is shown in the diagram in figure \ref{fig:chargingstationsmgr-component}.
+\item \textbf{Charging Stations Manager}: it permits to view all charging stations associated to a certain CPMS and do all management operations for each one of them. It requires to communicate, by some interfaces, with the \textit{DBMS} component , the \textit{Notification Manager} , the \textit{DSOs Manager}and the associated CPMS. If set properly, the sub-component \textit{Charging Station Viewer} can also interact automatically with the \textit{CPMS API}. It is shown in the diagram in figure \ref{fig:chargingstationsmgr-component}.
 
 
 \begin{figure}[htp]
 \centering
-\includegraphics[scale=0.6]{img/CHARGING STATION MANAGER.png}
+\includegraphics[scale=0.5]{img/CHARGING STATION MANAGER.png}
 \caption{UML Component Diagram for \textit{Charging Stations Manager} component}
 \label{fig:chargingstationsmgr-component}
 \end{figure}
 
-\item \textbf{Notification Manager}: it sends to the End-User the information about the state of a charging process. Indeed, it is connected to the \textit{CPMS API} and the \textit{Mobile Application} component via interfaces.
+\item \textbf{Notification Manager}: it sends to the End-User the information about the state of a charging process. Indeed, it is connected to the \textit{Charging Station Manager} and the \textit{Mobile Application} component via interfaces.
 
 \item \textbf{Map Manager}: it builds the charging station map interacting with the \textit{DBMS} and with the \textit{Maps API}
 
-\item \textbf{DSOs Manager}: it deals with everything about the management of DSO agreements. It is connected with the \textit{DSO API} in order to capture the DSOs offers and contact a DSO in order to make an energy furniture agreement and is also connected to the \textit{DBMS} with the purpose to get and save all DSO energy furniture of a certain CPMS.
+\item \textbf{DSOs Manager}: it deals with everything about the management of DSO agreements. It is connected with the \textit{DSO API} in order to capture the DSOs offers and contact a DSO in order to make an energy furniture agreement and is also connected to the \textit{DBMS} with the purpose to get all DSO energy furniture of a certain CPMS.
 
 \item \textbf{DBMS}: this component manages the operational database.
 
@@ -234,7 +234,7 @@ In the sequence diagram of figure \ref{fig:seq-loadMap} the functionality which 
 \\\\
 In the sequence diagram of figure \ref{fig:seq-booking} the whole charge booking process is presented together with relations between all involved components. First of all, a logged-in End-User must select a charging station, a socket type, and a date from the \textbf{Mobile Application}. After that, the router will receive a get availability request from the involved \textbf{eMSP} and will route it to \textbf{Booking Manager}, that will get from \textbf{DBMS} all availability for that specific day. If there is at least one are all sent to \textbf{Mobile Application}, otherwise, an error is sent back. At this point, the End-User must select, through the \textbf{Mobile Application}, a time slot from the available ones, a vehicle, and also a payment method from the ones connected to his account. A booking request will after follow the same path as before in order to reach the \textbf{Booking Manager}, which will exploit the \textbf{Payment API} in order to check if the selected payment method has enough funds for the payment and provisionally block them. If that operation has success the new booking is stored in the \textbf{DBMS} and a success message is sent back to the \textbf{Mobile Application}, otherwise, a booking error is returned.
 \\\\
-In the sequence diagram of figure \ref{fig:seq-charge} is presented how all components react and interact with each other during a whole charging process that is assumed to have been already booked. First of all, a correctly logged-in End-User, which is assumed to be near the right charging column, must click on the start charging button of the \textbf{Mobile Application}, which will send the request with the associated \textit{id} to the \textbf{Router}, trough the \textbf{eMSP}. Then, the request is routed to the \textbf{Booking Manager} that will ask all dates about the specific charge to the \textbf{DBMS} and then will check them. If the charge exists and it's the right time, the \textbf{Booking Manager} sends, through the \textbf{Router}, an \textit{abilitateCharge} message to the \textbf{Charging Station Manager} for that specific charge at that specific time in that specific socket of that specific charging station. After that, the \textbf{Booking Manager} sends also a \textit{charge\_can\_start} message to the mobile application. At this point, the user approaches his mobile phone to the RFID reader of the charging socket and the \textbf{Charging Station API} sends a get enabling message to the \textbf{Charging Station Manager} for the specific charge \textit{id} obtained through RFID. If the \textit{id} is correct the charge starts and the \textbf{Charging Station API} sends periodically to the \textbf{Charging Station Manager} the current status of recharge, which will be reported, firstly to the \textbf{DBMS} and secondly, through the \textbf{Router}, as a \textit{current\_status} messages to the \textbf{Mobile Application} that displays charging status to the End-User. When the charge is completed, the \textbf{Charging Station API} communicates it to the \textbf{Charging Station Manager} that will save it to the \textbf{DBMS} and then ask, always through the \textbf{Router}, to the \textbf{Notification Manager} to send a notification of completed charge directly to the \textbf{Mobile Application}, that will show it to the user that will consequently remove the plug. To keep this heavy diagram a little cleaner has not been represented the fact that when the charge is complete, funds are charged to the End-User payment method from \textbf{Payment API}, and also this information is stored in the \textbf{DBMS}.
+In the sequence diagram of figure \ref{fig:seq-charge} is presented how all components react and interact with each other during a whole charging process that is assumed to have been already booked. First of all, a correctly logged-in End-User, which is assumed to be near the right charging column, must click on the start charging button of the \textbf{Mobile Application}, which will send the request with the associated \textit{id} to the \textbf{Router}, trough the \textbf{eMSP}. Then, the request is routed to the \textbf{Booking Manager} that will ask all dates about the specific charge to the \textbf{DBMS} and then will check them. If the charge exists and it's the right time, the \textbf{Booking Manager} sends an \textit{enableCharge} message to the \textbf{CPMS} for that specific charge at that specific time in that specific socket of that specific charging station. After that, the \textbf{Booking Manager} sends also a \textit{charge\_ok} message to the mobile application. At this point, the user inserts the plug of his car into the charging socket and the \textbf{CPMS API} checks if the charge for that car is enabled. If it's the case the charge starts and the \textbf{CPMS API} sends periodically to the \textbf{Charging Station Manager} the current status of recharge, which will be reported, firstly to the \textbf{DBMS} and secondly to the \textbf{Notification Manager} that will send it to the \textbf{Mobile Application}, which displays charging status to the End-User. When the charge is completed, the \textbf{CPMS API} communicates it to the \textbf{Charging Station Manager} that will save it to the \textbf{DBMS} and then ask to the \textbf{Notification Manager} to send a notification of completed charge directly to the \textbf{Mobile Application}, that will show it to the user that will consequently remove the plug. To keep this heavy diagram a little cleaner has not been represented the fact that when the charge is complete, funds are charged to the End-User payment method from \textbf{Payment API}, and also this information is stored in the \textbf{DBMS}.
 \\\\
 In the sequence diagram of figure \ref{fig:seq-selectDSO} is presented the process of DSO selection from the CPOW point of view by showing how different involved components communicate with each other. First of all, an already logged-in CPOW must ask from the \textbf{Web Application} for all available DSOs for a specific charging station (this depends on the charging station location, i.e. different geographical areas may have different DSOs). Then a get DSOs request will follow the following path: \textbf{Web Application}-\textbf{Router}-\textbf{DSO Manager}. This last component will after get from \textbf{DSO API} the updated list of all available DSOs, check which ones are available for the specific charging station (after getting charging station data from \textbf{DBMS}), and then finally return back a list that is shown by the \textbf{Web Application}. At this point, the CPOW, through his web interface, selects one DSO and a change DSO request travels until reaches \textbf{Charging Station Manager}, that checks if the selected DSO is already active for that specific charging station. If it's not the case, a change DSO request is sent firstly to the \textbf{DSO Manager} that will communicate to \textbf{DSO API} the change and secondly another request is sent to \textbf{CPMS API}, in order to apply the effective changing to the charging station. At the end, the new DSO status for the charging station is stored from the \textbf{Charging Station Manager} to the \textbf{DBMS} and a success message is sent back to the \textbf{Web Application}. On the other hand, if the DSO is already selected for that specific charging station the system returns a message, and nothing changes.
 \\\\
@@ -455,7 +455,7 @@ Table \ref{tab:req-trace} has been added to highlight for each component what re
     Bookings Manager & R9, R10, R11, R14\\ \hline
     Map Manager & R1, R2, R9 \\ \hline
     DSOs Manager &  R19\\ \hline
-    Charging Station Manager & R4, R15, R17, R19, R21, R24, R26, R27 \\ \hline
+    Charging Station Manager & R4, R12, R13, R15, R17, R19, R21, R24, R26, R27 \\ \hline
     DBMS & R1, R2, R4, R6, R7, R8, R15, R26, R27 \\ \hline
 
   \end{tabular}
@@ -474,7 +474,7 @@ In the following lines is explained how the requirements are provided by the com
     \item{[R9]} \label{R9} The system must allow registered end users to book a charge in a specific charging station. The Mobile Application allows the user to visualize the charging stations map provided by the Map Manager and fill and confirm a charge booking through the Bookings Manager.
     \item{[R10]} \label{R10} The system must allow end users to unlock a charging socket if they have booked it and it's the correct time-slot. The Mobile Application component allows the user to visualize a personal booking page where it's possible to unlock the associated charging socket by the Bookings Manager that communicates with the related CPMS.
     \item{[R11]} \label{R11} The system must let a charge start if a vehicle is correctly connected and the charging socket is unlocked. This requirement is provided by the Bookings Manager component that directly communicates with the related CPMS.
-    \item{[R12]} \label{R12} The system must show to end users the charging status (e.g. remaining time to complete charge). This requirement is met by the Mobile Application component and the Notification Manager component. The Mobile Application component provides the End-User with the information sent by the Notification Manager, which is directly connected to the related CPMS.
+    \item{[R12]} \label{R12} The system must show to end users the charging status (e.g. remaining time to complete charge). This requirement is met by the Mobile Application component and the Notification Manager component. The Mobile Application component provides this information to the  End-User by the Notification Manager, which is directly connected to the Charging Stations Manager..
     \item{[R13]} \label{R13} The system must notify the end-user when the charge is complete. This requirement is provided in the same way as requirement 12
     \item{[R14]} \label{R14} When a charging process is correctly finished the system must charge on the end user selected payment system the correct import. This requirement is provided by the Bookings Manager component that is directly connected with the right Payment API.
     \item{[R15]} \label{R15} The system must allow CPOW to register a new charging station through its physical id. The Web application allows a CPOW to insert all information related to the registration which are checked and than saved by the Charging Station Manager that communicates with the DBMS.
@@ -491,7 +491,7 @@ In the following lines is explained how the requirements are provided by the com
     \item{[R26]} \label{R26} The system must allow CPOWs to view all the bookings of a certain charging station associated to them and their status. **
     \item{[R27]} \label{R27} The system must allow CPOWs to set prices and special offers for a certain charging station associated to him. **
 \end{itemize}
-* R16, R18, R20, R22, R23, R25 requirements refers to the functions done automatically by the CPMS.\newline
+* R16, R18, R20, R22, R23, R25 requirements refers to the functions that can be done automatically by the Charging Stations Manager interacting with a CPMS.\newline
 ** These requirement are provided by the Web Application component and the Charging Station Component. The Web Application component allows the CPOW to input the different decisions, while the Charging Station component executes them by communicating directly with the relevant CPMS. In the case of requirements 26 and 27, the DBMS is used to store the input information.
 
 \chapter{Implementation, integration and test plan}
@@ -500,51 +500,124 @@ The implementation and test plan is defined starting from the general component 
 to be available from the beginning. The system is to be developed according to the following five subparts :
 \begin{enumerate}
     \item \textbf{Data}\newline
-    This subpart consists of the database and the DBMS that handles it. This subpart is the most important to implement since is the core of the system.
-    \item \textbf{CPO Managers*}\newline
-    This subpart consists of the components that relays on the CPO Worker experience ( DSOs and Charging Station Manager ). Charging Station Manager component will be implemented as first. In order to do the testing operation both components will need a stub of the DBMS.
-    \item \textbf{End-User Managers}*\newline
-    This subpart consists of the components that relays on the End-User experience ( Notification, Access, Bookings and Map Manager ). The Bookings Manager component will be implemented as first. In order to do the testing operation, every component will need a stub of the DBMS, while the Notification Manager component will need also a stub of the Mobile Application component.
+    This subpart consists of the database and the \textit{DBMS} that handles it. This subpart is the most important to implement since is the core of the system.
+    \item \textbf{First Managers}\newline
+    After the installation of the Data subpart follows the implementation of the Application Logic. First of all are created the "Manager" components that are designated to manage the structure on which the entire system is based, i.e. the \textit{Access Manager}, the \textit{Bookings Manager} and the \textit{Charging Stations Manager}, that in fact handles respectively
+    the Accounts, the Charge Bookings and the Charging Stations.
+    \item \textbf{Second Managers}\newline
+    This subpart consists of the remainder of the "Manager" components, i.e. the \textit{DSOs Manager} , the \textit{Notification Manager} and the \textit{Map Manager}.
     \item \textbf{Router}\newline
-    When all the previous components implementation is finished the Router component can be implemented. Note that the Router component need a stub of all Manager components in order to do the testing operation
+    When all the previous components implementation is finished the Router component can be implemented.
     \item \textbf{Client side}\newline
     Finally the presentation layer is implemented. It is important to test the Mobile Application component on various types of mobile devices (smart-phones and tablets), with different versions of Android and iOS. The same holds for the Web Application that will need tests on various browsers (Google Chrome, Mozilla Firefox, Microsoft Edge), versions and operating systems.
 \end{enumerate}
-* Sub parts 2 and 3 constitute the Back-End of the system and can be implemented in parallel since they are independent of each other.
+In order to do the unit tests some components will need stubs :
+\begin{itemize}
+    \item \textit{Access Manager}, \textit{Bookings Manager}, \textit{Map Manager}, \textit{DSOs Manager} and \textit{Charging Stations Manager} will need a stub for the \textit{DBMS}.
+    \item \textit{DSOs Manager} will need a stub for the \textit{Charging Stations Manager}.
+    \item \textit{Maps Manager} will need a stub for the \textit{Bookings Manager}.
+    \item \textit{Notification Manager} will need a stub for the \textit{Mobile Application}.
+    \item \textit{Router} will need a stub for all the "Manager" components.
+    \item \textit{Mobile Application} will need a stub for the \textit{eMSP}.
+    \item \textit{eMSP} and \textit{Web Application} will need a stub for the \textit{Router}.
+\end{itemize}
+
 \section{Integration testing}
 Following the implementation order explained above, has been chosen a \textbf{bottom-up} approach as integration testing strategy. The choice of this testing technique is clearly based on the evident hierarchical structure of the system. Note that as a consequence it will be necessary to construct drivers for each module and when a driver will be replaced by module the integration tests need to be checked again. Has been also decided to integrate elements of a \textbf{critical-module-first} approach in order to give precedence to the fundamental elements of the system in order to conduct a more important testing on them and find system-breaking bugs as early as possible. The figures below helps to practically understand the integration order of the components.\newline
 \begin{enumerate}
-    \item \textbf{DBMS}\par
+    \item \textbf{First Managers}\\
+    The integration starts with the First Managers components subpart since the \textit{DBMS} and databases are solutions that are commercially available and they only need to be configured to communicate properly with the rest of the system. At this step is possible to observe how Accounts, Charge Bookings and Charging Stations are generated, are stored and how interact with prevoius istances saved.\newline$ $\newline$ $\newline$ $\newline\par
     \begin{minipage}{\linewidth}
         \centering
         \includegraphics[scale=0.3]{img/INTEGRATION_1.png}
-        \captionof{figure}{Integration DBMS}
+        \captionof{figure}{Integration First Managers}
     \end{minipage}
 
-    \item \textbf{Back-End}\par
+    $ $\newline
+    $ $\newline
+    $ $\newline
+    $ $\newline
+    $ $\newline
+
+    \item \textbf{Second Managers}\\
+    Then Second Managers components can be integrated\newline$ $\newline$ $\newline\par
     \begin{minipage}{\linewidth}
         \centering
-        \includegraphics[scale=0.5]{img/INTEGRATION_2.png}
-        \captionof{figure}{Integration Back-End}
+        \includegraphics[scale=0.3]{img/INTEGRATION_2.png}
+        \captionof{figure}{Integration Second Managers}
     \end{minipage}\newline\newline
 
-    \item \textbf{Router}\par
+    \item \textbf{Router}\\
+    After the Managers components are ready the \textit{Router} can be integrated\newline$ $\newline$ $\newline\par
     \begin{minipage}{\linewidth}
         \centering
-        \includegraphics[scale=0.5]{img/INTEGRATION_3.png}
+        \includegraphics[scale=0.4]{img/INTEGRATION_3.png}
         \captionof{figure}{Integration Router}
     \end{minipage}
 
-    \item \textbf{Client}\par
+    \item \textbf{Client}\\
+    The integration concludes with the Presentation Layer\par
     \begin{minipage}{\linewidth}
         \centering
         \includegraphics[scale=0.5]{img/INTEGRATION_4.png}
         \captionof{figure}{Integration Client}
     \end{minipage}
 \end{enumerate}
-
+After the integration testing has been finished the system testing can be done with the purpose to test the functional and non-functional requirements. This will be mainly load type since the main job of the application is to store information such that personal accounts or bookings, thus is important to observe how it works when handling big amount of data. In the second instance also performance testing has to be done in order to understand how the system responds during a End-User vehicle charging process.
 \chapter{Effort spent}
+\begin{table}[H]
+\centering
 
+Enrico Brunetti\\
+\begin{tabular}{p{2cm}p{1.5cm}p{7cm}}
+\toprule
+\textit{Date} & \textit{Hour} & \textit{Section} \\ \midrule
+21-12-2022 & 3 * & Introduction and Architectural Design \\ \midrule
+22-12-2022 & 2 &  Architectural Design\\ \midrule
+23-12-2022 & 2 &  Architectural Design\\ \midrule
+24-12-2022 & 3 * & Architectural Design \\ \midrule
+27-12-2022 & 3 & Architectural Design \\ \midrule
+28-12-2022 & 2 & Architectural Design \\ \midrule
+29-12-2022 & 2 & Architectural Design \\ \midrule
+30-12-2022 & 3 & Requirements Traceability \\ \midrule
+02-01-2023 & 1.5 * & Architectural Design \\ \midrule
+03-01-2023 & 1.5 * & Architectural Design \\ \midrule
+04-01-2023 & 2.5 * & Architectural Design \\  \midrule
+05-01-2023 & 1.2 &  Architectural Design \\  \midrule
+06-01-2023 & 2 & Implementation, integration and Test Plan \\ \midrule
+07-01-2023 & 5 * & Final Work \\ \midrule
+
+\bottomrule
+\end{tabular}
+\caption[Enrico Brunetti's effort table]{}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+
+Matteo Gionfriddo\\
+\begin{tabular}{p{2cm}p{1.5cm}p{7cm}}
+\toprule
+\textit{Date} & \textit{Hour} & \textit{Section} \\ \midrule
+21-12-2022 & 3 * & Introduction and Architectural Design \\ \midrule
+22-12-2022 & 2.5 &  Architectural Design\\ \midrule
+23-12-2022 & 3 &  Architectural Design\\ \midrule
+24-12-2022 & 3 * & Architectural Design \\ \midrule
+26-12-2022 & 2 & User Interface Design \\ \midrule
+27-12-2022 & 1.5 & User Interface Design \\ \midrule
+28-12-2022 & 2 & Requirements Traceability \\ \midrule
+03-01-2023 & 1.5 * & Architectural Design \\ \midrule
+04-01-2023 & 2.5 * & Architectural Design \\  \midrule
+05-01-2023 & 3 & Implementation, integration and Test Plan \\  \midrule
+06-01-2023 & 2 & Implementation, integration and Test Plan \\ \midrule
+07-01-2023 & 5 * & Final Work \\ \midrule
+
+\bottomrule
+\end{tabular}
+\caption[Matteo Gionfriddo's effort table]{}
+\end{table}
+\textit{* Group work}
 \chapter{References}
 \begin{itemize}
 \item Specification Document: “Assignment RDD AY 2022-2023\_v3.pdf”
