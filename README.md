@@ -1,6 +1,6 @@
-# Safestreets application RASD and Design Document <br />
+# eMall application RASD and Design Document <br />
 
-Here is our university project for Software Engineering 2 course, it consists of realizing the Requirements Analysis and Specification Document (RASD) and the Design Document (DD) for a real use case: Safestreets application. <br />
+Here is our university project for Software Engineering 2 course, it consists of realizing the Requirements Analysis and Specification Document (RASD) and the Design Document (DD) for a real use case: eMall application. <br />
 <br />
 You can find the two documents here: <br /> <br />
 RASD: https://github.com/enricobrunetti/BrunettiGionfriddo/blob/main/DeliveryFolder/RASD1.pdf <br />
