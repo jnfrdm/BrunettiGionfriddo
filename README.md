@@ -1,10 +1,26 @@
-# eMall application RASD and Design Document <br />
-
 Here is our university project for Software Engineering 2 course, it consists of realizing the Requirements Analysis and Specification Document (RASD) and the Design Document (DD) for a real use case: eMall application. <br />
 <br />
 You can find the two documents here: <br /> <br />
 RASD: https://github.com/enricobrunetti/BrunettiGionfriddo/blob/main/DeliveryFolder/RASD1.pdf <br />
 Design Document: https://github.com/enricobrunetti/BrunettiGionfriddo/blob/main/DeliveryFolder/DD1.pdf <br /> <br />
+
+# Component Diagram <br />
+Here is showed the Component Diagram for the eMall system that displays in an high level how
+every component are connected each other. For more details the reader can refer to the Subchapter 2.2 of the Design Document.
+
+<p align="center">
+  <img align="left" alt="general diagram" src="/Assets/GENERAL DIAGRAM.png">
+</p>
+
+# Mockup eMall Mobile Application<br />
+Here is showed the mobile application mockup of eMall. For more details the reader can refer to the chapter 3 of Design Document.
+<p align="center">
+  <img align="left" alt="general diagram" src="/Assets/MCKP1.png">
+</p>
+
+<p align="center">
+  <img align="left" alt="general diagram" src="/Assets/MCKP2.png">
+</p>
 
 ## The problem: eMall - e-Mobility for All
 Electric mobility (e-Mobility) is a way to limit the carbon footprint caused by our urban and sub-urban 
